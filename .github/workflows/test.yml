@@ -1,0 +1,50 @@
+name: Test Build
+on:
+  push:
+    branches:
+      - "nop"    
+
+# This is just for debugging and development
+jobs:
+  upload_artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'write file'
+        run: |
+          echo ${{github.run_number}} > ./artifact.txt 
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-artifact
+          path: ./artifact.txt
+          retention-days: 5
+
+  # emit to outputs
+  emit_environment:
+    name: Push yaitde-agent to GitHub Packages
+    runs-on: ubuntu-latest
+    outputs:
+      buildId: ${{github.run_number}}
+      appId: ${{ env.GITHUB_REF_SLUG }}
+    
+    steps:
+      - uses: rlespinasse/github-slug-action@v2.x
+        
+      - name: Dump Env
+        env:
+          TEMP_ENV: ${{ toJson(env) }}
+        run: |
+          echo "$TEMP_ENV"
+          
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          echo "$GITHUB_CONTEXT"   
+      
+      - name: Invoke deployment hook
+        uses: distributhor/workflow-webhook@v1
+        env:
+          webhook_url: ${{ secrets.WEBHOOK_URL }}
+          webhook_secret: ${{ secrets.WEBHOOK_SECRET }}
+          data: '{ "buildId": "${{ github.run_number }}", "applicationName" : "${{ env.GITHUB_REF_SLUG }}" }'

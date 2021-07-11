@@ -1,0 +1,110 @@
+{
+	"info": {
+		"_postman_id": "7944b3ba-9675-4ba8-9ffa-c6016ff8785d",
+		"name": "pm-import",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "31b6bd8d-86f5-4487-be81-4764187e5a39",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"token\", jsonData.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer SomeToken",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"{{user}}\",\n    \"scope\": \"mock\",\n    \"secret\": \"{{secret}}\",\n    \"instance\" : \"my-named-instance\"\n}"
+				},
+				"url": {
+					"raw": "{{authUrl}}/auth",
+					"host": [
+						"{{authUrl}}"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "echo - app1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "52cdd5a0-8e2b-4bf0-a097-4061173bb34f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "x-yaitde-application",
+						"type": "text",
+						"value": "{{appId}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"test\" : \"json\",\n\t\"property1\" : 5\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/echo",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"echo"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,2494 @@
+{
+	"info": {
+		"_postman_id": "e390a04b-9074-4ae0-bc75-d04315714d1f",
+		"name": "ExFin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Initialization",
+			"item": [
+				{
+					"name": "Setup Api Token - ping",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7f9db41d-550b-486d-9871-511b7dfe6456",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Store Token\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"api_token\", jsonData.access_token);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "demo123abc",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "resourceOwner",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "scope",
+									"value": "api1 ping",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{api_user}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{api_password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{identity_url}}/connect/token",
+							"host": [
+								"{{identity_url}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Values Controller Test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7f9db41d-550b-486d-9871-511b7dfe6456",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api_url}}/api/values",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"values"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Open Ping - GET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api_url}}/api/ping",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"ping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Access Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "71d2872d-fd93-48c1-8a9a-b996726b0a96",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Sample Collection contains 7 elements\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.length).to.eql(7);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api_url}}/api/ping",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"ping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TB - Clear Repo - Expect 403",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bbd365ab-6923-4fab-a149-b11bbb94148c",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "85a304da-4239-4622-be4e-f92c1fbb2832",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api_url}}/api/trialbalance/clear",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"trialbalance",
+								"clear"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Trial Balance CRUD",
+			"item": [
+				{
+					"name": "Setup Api Token - TrialBalance",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a0a91243-1f3f-4de3-b1c3-5da03163ffaa",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Store Token\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"api_token\", jsonData.access_token);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "demo123abc",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "resourceOwner",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "scope",
+									"value": "trialbalance chartofaccounts",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{api_user}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{api_password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{identity_url}}/connect/token",
+							"host": [
+								"{{identity_url}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TB - GetAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bd460a72-9f03-49a0-9d44-cc312f8004f4",
+								"exec": [
+									"",
+									"pm.test(\"Success\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+									"});",
+									"",
+									"pm.test(\"Sample Collection contains 1 element\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.length).to.eql(1);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "8ae9d098-4633-489a-acee-e3b2fe7a9ff9",
+								"exec": [
+									"",
+									"const clear = {",
+									"  url: pm.environment.get(\"api_url\") + '/api/trialbalance/clear',",
+									"  method: 'POST',",
+									"  header: {",
+									"        \"Authorization\": \"Bearer \" + pm.environment.get(\"api_token\")",
+									"        }",
+									"};",
+									"",
+									"pm.sendRequest(clear, function (err, res) {",
+									"    ",
+									"    const req = {",
+									"      url: pm.environment.get(\"api_url\") + '/api/trialbalance',",
+									"      method: 'POST',",
+									"      header: {",
+									"            \"content-type\": \"application/json\",",
+									"            \"Authorization\": \"Bearer \" + pm.environment.get(\"api_token\")",
+									"        },",
+									"      body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify({ ownerId: pm.environment.get(\"api_userId\"), realm: pm.environment.get(\"realm1\"), branch : '', period: 201807, entries: [{accountNumber : '1000', department : '',amount : 1234.56 }]})",
+									"      }",
+									"    };",
+									"    ",
+									"    pm.sendRequest(req, function (err, res) {",
+									"        ",
+									"    });",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api_url}}/api/trialbalance",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"trialbalance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TB - Create a trial balance",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "73fb34c3-74c1-44ea-84c2-661d3fba7b60",
+								"exec": [
+									"",
+									"var jsonData = pm.response.json();",
+									"    ",
+									"pm.test(\"Success\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+									"});",
+									"",
+									"pm.test(\"trial balance was saved\", function () {",
+									"",
+									"    pm.environment.set(\"test_id\", jsonData.id);",
+									"    pm.expect(jsonData.branch).to.eql('');",
+									"    pm.expect(jsonData.period).to.eql(201807);",
+									"    pm.expect(jsonData.ownerId).to.eql(pm.environment.get(\"api_userId\"));",
+									"    pm.expect(jsonData.realm).to.eql(pm.environment.get(\"realm1\"));",
+									"    pm.expect(jsonData.entries.length).to.eql(4);",
+									"    ",
+									"    pm.expect(jsonData.entries[0].accountNumber).to.eql('1000');",
+									"    pm.expect(jsonData.entries[0].department).to.eql('');",
+									"    pm.expect(jsonData.entries[0].amount).to.eql(1234.56);",
+									"    pm.expect(jsonData.entries[1].accountNumber).to.eql('1100');",
+									"    pm.expect(jsonData.entries[1].department).to.eql('');",
+									"    pm.expect(jsonData.entries[1].amount).to.eql(53.56);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "fabba176-04ac-472e-aa48-eb6f1ba37243",
+								"exec": [
+									"const clear = {",
+									"  url: pm.environment.get(\"api_url\") + '/api/trialbalance/clear',",
+									"  method: 'POST',",
+									"  header: {",
+									"        \"Authorization\": \"Bearer \" + pm.environment.get(\"api_token\")",
+									"        }",
+									"};",
+									"",
+									"pm.sendRequest(clear, function (err, res) {",
+									"    ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"realm\": \"{{realm1}}\",\n        \"branch\": \"\",\n        \"period\": 201807,\n        \"entries\": [\n            {\n                \"accountNumber\": \"1000\",\n                \"department\": \"\",\n                \"amount\": 1234.56\n            },\n            {\n                \"accountNumber\": \"1100\",\n                \"department\": \"\",\n                \"amount\": 53.56\n            },\n            {\n                \"accountNumber\": \"1200\",\n                \"department\": \"\",\n                \"amount\": -53.56\n            },\n            {\n                \"accountNumber\": \"1300\",\n                \"department\": \"\",\n                \"amount\": -1234.56\n            }\n        ]\n    }"
+						},
+						"url": {
+							"raw": "{{api_url}}/api/trialbalance",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"trialbalance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TB - Create must have access to the realm",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "73fb34c3-74c1-44ea-84c2-661d3fba7b60",
+								"exec": [
+									"",
+									"pm.test(\"Unauthorization\", function () {",
+									"   pm.response.to.have.status(403)",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "fabba176-04ac-472e-aa48-eb6f1ba37243",
+								"exec": [
+									"const clear = {",
+									"  url: pm.environment.get(\"api_url\") + '/api/trialbalance/clear',",
+									"  method: 'POST',",
+									"  header: {",
+									"        \"Authorization\": \"Bearer \" + pm.environment.get(\"api_token\")",
+									"        }",
+									"};",
+									"",
+									"pm.sendRequest(clear, function (err, res) {",
+									"    ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"realm\": \"bad_realm\",\n        \"branch\": \"\",\n        \"period\": 201807,\n        \"entries\": [\n            {\n                \"accountNumber\": \"1000\",\n                \"department\": \"\",\n                \"amount\": 1234.56\n            },\n            {\n                \"accountNumber\": \"1100\",\n                \"department\": \"\",\n                \"amount\": 53.56\n            },\n            {\n                \"accountNumber\": \"1200\",\n                \"department\": \"\",\n                \"amount\": -53.56\n            },\n            {\n                \"accountNumber\": \"1300\",\n                \"department\": \"\",\n                \"amount\": -1234.56\n            }\n        ]\n    }"
+						},
+						"url": {
+							"raw": "{{api_url}}/api/trialbalance",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"trialbalance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TB - GetAll - No Scripts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0827e6ac-e70c-42c2-b6a8-dfa10e50755f",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0f5b891d-f545-4fdb-87c3-bd26764e24aa",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api_url}}/api/trialbalance",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"trialbalance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TB - Clear Repo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3a599cd0-c290-4ebe-925e-78a02187728b",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "85a304da-4239-4622-be4e-f92c1fbb2832",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api_url}}/api/trialbalance/clear",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"trialbalance",
+								"clear"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Trial Balance Map CRUD",
+			"item": [
+				{
+					"name": "TBM - Create a trial balance map",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0c6f8734-d2b7-4a8c-a6f2-29c382787952",
+								"exec": [
+									"",
+									"var jsonData = pm.response.json();",
+									"    ",
+									"pm.test(\"Success\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+									"});",
+									"",
+									"pm.test(\"trial balance map was saved\", function () {",
+									"    pm.expect(jsonData.accountMaps.length).to.eql(4);",
+									"    ",
+									"    pm.expect(jsonData.sourceRealm).to.eql(pm.environment.get(\"realm1\"));",
+									"    pm.expect(jsonData.targetRealm).to.eql(pm.environment.get(\"realm2\"));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a603e2a7-16fc-4cdb-8cc5-76c90d0d0fab",
+								"exec": [
+									"const clear = {",
+									"  url: pm.environment.get(\"api_url\") + '/api/trialbalancemap/clear',",
+									"  method: 'POST',",
+									"  header: {",
+									"        \"Authorization\": \"Bearer \" + pm.environment.get(\"api_token\")",
+									"        }",
+									"};",
+									"",
+									"pm.sendRequest(clear, function (err, res) {",
+									"    ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"id\": \"coamap1\",\n        \"sourceRealm\": \"{{realm1}}\",\n        \"targetRealm\": \"{{realm2}}\",\n        \"accountMaps\": [\n            {\n                \"sourceAccount\": \"1000\",\n                \"targetAccount\": \"11000\"\n            },\n            {\n                \"sourceAccount\": \"1100\",\n                \"targetAccount\": \"11100\"\n            },\n            {\n                \"sourceAccount\": \"1200\",\n                \"targetAccount\": \"11200\"\n            },\n            {\n                \"sourceAccount\": \"1300\",\n                \"targetAccount\": \"11300\"\n            }\n        ]\n    }"
+						},
+						"url": {
+							"raw": "{{api_url}}/api/trialbalancemap",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"trialbalancemap"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TBM - GetAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f8d7eaa4-6086-4ab8-aa71-a60b038e8435",
+								"exec": [
+									"",
+									"pm.test(\"Success\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+									"});",
+									"",
+									"pm.test(\"Collection contains 1 element\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    ",
+									"    pm.expect(jsonData.length).to.eql(1);",
+									"    pm.expect(jsonData[0].accountMaps.length).to.eql(4);",
+									"    pm.expect(jsonData[0].sourceRealm).to.eql(pm.environment.get(\"realm1\"));",
+									"    pm.expect(jsonData[0].targetRealm).to.eql(pm.environment.get(\"realm2\"));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d291c875-7a17-4ccc-9338-059dae1152c5",
+								"exec": [
+									"",
+									"const clear = {",
+									"  url: pm.environment.get(\"api_url\") + '/api/trialbalancemap/clear',",
+									"  method: 'POST',",
+									"  header: {",
+									"        \"Authorization\": \"Bearer \" + pm.environment.get(\"api_token\")",
+									"        }",
+									"};",
+									"",
+									"pm.sendRequest(clear, function (err, res) {",
+									"    ",
+									"    const req = {",
+									"      url: pm.environment.get(\"api_url\") + '/api/trialbalancemap',",
+									"      method: 'POST',",
+									"      header: {",
+									"            \"content-type\": \"application/json\",",
+									"            \"Authorization\": \"Bearer \" + pm.environment.get(\"api_token\")",
+									"        },",
+									"      body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify({",
+									"                            \"id\": \"coamap1\",",
+									"                            \"sourceRealm\": pm.environment.get(\"realm1\"),",
+									"                            \"targetRealm\": pm.environment.get(\"realm2\"),",
+									"                            \"accountMaps\": [",
+									"                                {",
+									"                                    \"sourceAccount\": \"1000\",",
+									"                                    \"targetAccount\": \"11000\"",
+									"                                },",
+									"                                {",
+									"                                    \"sourceAccount\": \"1100\",",
+									"                                    \"targetAccount\": \"11100\"",
+									"                                },",
+									"                                {",
+									"                                    \"sourceAccount\": \"1200\",",
+									"                                    \"targetAccount\": \"11200\"",
+									"                                },",
+									"                                {",
+									"                                    \"sourceAccount\": \"1300\",",
+									"                                    \"targetAccount\": \"11300\"",
+									"                                }",
+									"                            ]",
+									"                        })",
+									"                  }",
+									"    };",
+									"    ",
+									"    pm.sendRequest(req, function (err, res) {",
+									"        ",
+									"    });",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api_url}}/api/trialbalancemap",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"trialbalancemap"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TBM - Create a trial balance for mapping",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6888af82-1296-4aa5-88b9-95b94969dcf1",
+								"exec": [
+									"",
+									"var jsonData = pm.response.json();",
+									"    ",
+									"pm.test(\"Success\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+									"});",
+									"",
+									"pm.test(\"trial balance map was saved\", function () {",
+									"    pm.environment.set(\"test_id\", jsonData.id);",
+									"    pm.expect(jsonData.branch).to.eql('');",
+									"    pm.expect(jsonData.period).to.eql(201807);",
+									"    pm.expect(jsonData.realm).to.eql(pm.environment.get(\"realm1\"));",
+									"    pm.expect(jsonData.entries.length).to.eql(4);",
+									"    ",
+									"    pm.expect(jsonData.entries[0].accountNumber).to.eql('1000');",
+									"    pm.expect(jsonData.entries[0].department).to.eql('');",
+									"    pm.expect(jsonData.entries[0].amount).to.eql(1234.56);",
+									"    pm.expect(jsonData.entries[1].accountNumber).to.eql('1100');",
+									"    pm.expect(jsonData.entries[1].department).to.eql('');",
+									"    pm.expect(jsonData.entries[1].amount).to.eql(53.56);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c9118962-2119-41a6-a870-7c584a2dd936",
+								"exec": [
+									"const clear = {",
+									"  url: pm.environment.get(\"api_url\") + '/api/trialbalance/clear',",
+									"  method: 'POST',",
+									"  header: {",
+									"        \"Authorization\": \"Bearer \" + pm.environment.get(\"api_token\")",
+									"        }",
+									"};",
+									"",
+									"pm.sendRequest(clear, function (err, res) {",
+									"    ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"realm\": \"{{realm1}}\",\n        \"branch\": \"\",\n        \"period\": 201807,\n        \"entries\": [\n            {\n                \"accountNumber\": \"1000\",\n                \"department\": \"\",\n                \"amount\": 1234.56\n            },\n            {\n                \"accountNumber\": \"1100\",\n                \"department\": \"\",\n                \"amount\": 53.56\n            },\n            {\n                \"accountNumber\": \"1200\",\n                \"department\": \"\",\n                \"amount\": -53.56\n            },\n            {\n                \"accountNumber\": \"1300\",\n                \"department\": \"\",\n                \"amount\": -1234.56\n            }\n        ]\n    }"
+						},
+						"url": {
+							"raw": "{{api_url}}/api/trialbalance",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"trialbalance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TBM - Map Trial Balance",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "def8e4f5-ccec-4178-a343-d5e17fbb378c",
+								"exec": [
+									"",
+									"pm.test(\"Success\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+									"});",
+									"",
+									"pm.test(\"trail balance was mapped correctly\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    ",
+									"    pm.expect(jsonData.entries.length).to.eql(4);",
+									"    pm.expect(jsonData.realm).to.eql(pm.environment.get(\"realm2\"));",
+									"    pm.expect(jsonData.period).to.eql(201807);",
+									"    ",
+									"    pm.expect(jsonData.entries[0].accountNumber).to.eql('11000');",
+									"    pm.expect(jsonData.entries[0].department).to.eql('');",
+									"    pm.expect(jsonData.entries[0].amount).to.eql(1234.56);",
+									"    pm.expect(jsonData.entries[1].accountNumber).to.eql('11100');",
+									"    pm.expect(jsonData.entries[1].department).to.eql('');",
+									"    pm.expect(jsonData.entries[1].amount).to.eql(53.56);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5a0cc185-6ab6-4d6f-a129-7734df8d1f50",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api_url}}/api/trialbalance/map/{{test_id}}?targetRealm={{realm2}}",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"trialbalance",
+								"map",
+								"{{test_id}}"
+							],
+							"query": [
+								{
+									"key": "targetRealm",
+									"value": "{{realm2}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TBM - GetAll - No Scripts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "02cc09b6-8764-4857-b39f-ef83f4c63916",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Success\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+									"});",
+									"",
+									"pm.test(\"Sample Collection contains 1 element\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    ",
+									"    pm.expect(jsonData.length).greaterThan(0);",
+									"});",
+									""
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d5cf15cf-9f7c-4053-b6d5-7bc81eca1909",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api_url}}/api/trialbalancemap",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"trialbalancemap"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TBM - GetAll By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a141edc5-6e51-4bad-a992-d092671b7cf7",
+								"exec": [
+									"",
+									"pm.test(\"Success\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+									"});",
+									"",
+									"pm.test(\"Collection contains 1 element\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    ",
+									"    pm.expect(jsonData.accountMaps.length).to.eql(4);",
+									"    pm.expect(jsonData.sourceRealm).to.eql(pm.environment.get(\"realm1\"));",
+									"    pm.expect(jsonData.targetRealm).to.eql(pm.environment.get(\"realm2\"));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "dda5a06b-f897-4902-9d35-566fe6aaa5d2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api_url}}/api/trialbalancemap/coamap1",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"trialbalancemap",
+								"coamap1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TBM - Clear",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "72e1e6c6-5b4d-495c-8ad9-f30497e13d80",
+								"exec": [
+									"",
+									"pm.test(\"Success\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5a0cc185-6ab6-4d6f-a129-7734df8d1f50",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api_url}}/api/trialbalancemap/clear",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"trialbalancemap",
+								"clear"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Kpi Sample CRUD",
+			"item": [
+				{
+					"name": "Setup Api Token - kpisample",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7f9db41d-550b-486d-9871-511b7dfe6456",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Store Token\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"api_token\", jsonData.access_token);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "demo123abc",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "resourceOwner",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "scope",
+									"value": "kpisample",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{api_user}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{api_password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{identity_url}}/connect/token",
+							"host": [
+								"{{identity_url}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Kpi - GetAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6dc5fcb3-80d9-4b3a-bd4a-7357aff2335a",
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Sample Collection contains 2 elements\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.length).to.eql(2);",
+									"});"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4e53a745-2b7a-4c8b-8dd5-e0f3b14758e7",
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"const clear = {",
+									"  url: pm.environment.get(\"api_url\") + '/api/sample/clear',",
+									"  method: 'POST',",
+									"  header: {",
+									"        \"Authorization\": \"Bearer \" + pm.environment.get(\"api_token\")",
+									"        }",
+									"};",
+									"",
+									"pm.sendRequest(clear, function (err, res) {",
+									"    ",
+									"    const sample1 = {",
+									"      url: pm.environment.get(\"api_url\") + '/api/sample',",
+									"      method: 'POST',",
+									"      header: {",
+									"            \"content-type\": \"application/json\",",
+									"            \"Authorization\": \"Bearer \" + pm.environment.get(\"api_token\")",
+									"        },",
+									"      body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify({ kpiCode: 'M1', sampleValue: 1234, samplePeriod: 201807 })",
+									"      }",
+									"    };",
+									"    ",
+									"    pm.sendRequest(sample1, function (err, res) {",
+									"        ",
+									"        const sample2 = {",
+									"          url: pm.environment.get(\"api_url\") + '/api/sample',",
+									"          method: 'POST',",
+									"          header: {",
+									"            \"content-type\": \"application/json\",",
+									"            \"Authorization\": \"Bearer \" + pm.environment.get(\"api_token\")",
+									"            },",
+									"          body: {",
+									"            mode: 'raw',",
+									"            raw: JSON.stringify({ kpiCode: 'M2', sampleValue: 5678, samplePeriod: 201807 })",
+									"          }",
+									"        };",
+									"    ",
+									"        pm.sendRequest(sample2,function (err, res) {",
+									"     ",
+									"        });",
+									"    });",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api_url}}/api/sample",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"sample"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Kpi - Post a single sample",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "db1bab8a-b6b6-42ac-9a2c-843cd0ae9587",
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"var jsonData = pm.response.json();",
+									"    ",
+									"pm.test(\"Success\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+									"});",
+									"",
+									"pm.test(\"Sample values were saved\", function () {",
+									"    pm.expect(jsonData.kpiCode).to.eql('M1');",
+									"    pm.expect(jsonData.samplePeriod).to.eql(201807);",
+									"    pm.expect(jsonData.sampleValue).to.eql(1234);",
+									"});",
+									""
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a6f7924a-783c-49ef-a3a0-21c0038d38ef",
+								"type": "text/javascript",
+								"exec": [
+									"const clear = {",
+									"  url: pm.environment.get(\"api_url\") + '/api/sample/clear',",
+									"  method: 'POST',",
+									"  header: {",
+									"        \"Authorization\": \"Bearer \" + pm.environment.get(\"api_token\")",
+									"        }",
+									"};",
+									"",
+									"pm.sendRequest(clear, function (err, res) {",
+									"    ",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"kpiCode\" : \"M1\", \"samplePeriod\" : 201807, \"sampleValue\": 1234 \n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/api/sample",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"sample"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Kpi - GetAll No Scripts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0827e6ac-e70c-42c2-b6a8-dfa10e50755f",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0f5b891d-f545-4fdb-87c3-bd26764e24aa",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api_url}}/api/sample",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"sample"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Kpi - Clear Sample Repo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3bcdf50f-ca68-48c7-b976-73e9ff78d2d8",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "85a304da-4239-4622-be4e-f92c1fbb2832",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api_url}}/api/sample/clear",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"sample",
+								"clear"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Chart of Accounts CRUD",
+			"item": [
+				{
+					"name": "Setup Api Token - chartofaccounts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7f9db41d-550b-486d-9871-511b7dfe6456",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Store Token\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"api_token\", jsonData.access_token);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "demo123abc",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "resourceOwner",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "scope",
+									"value": "chartofaccounts",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{api_user}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{api_password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{identity_url}}/connect/token",
+							"host": [
+								"{{identity_url}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "COA - GetAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bcb27d75-9512-4168-a097-3e9f20fe497d",
+								"exec": [
+									"",
+									"pm.test(\"Success\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+									"});",
+									"",
+									"pm.test(\"Sample Collection contains 1 element\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.length).to.eql(1);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2b9959b6-92b4-4510-9262-06cfddef0d97",
+								"exec": [
+									"",
+									"const clear = {",
+									"  url: pm.environment.get(\"api_url\") + '/api/coa/clear',",
+									"  method: 'POST',",
+									"  header: {",
+									"        \"Authorization\": \"Bearer \" + pm.environment.get(\"api_token\")",
+									"        }",
+									"};",
+									"",
+									"pm.sendRequest(clear, function (err, res) {",
+									"    ",
+									"    const coa = {",
+									"      url: pm.environment.get(\"api_url\") + '/api/coa',",
+									"      method: 'POST',",
+									"      header: {",
+									"            \"content-type\": \"application/json\",",
+									"            \"Authorization\": \"Bearer \" + pm.environment.get(\"api_token\")",
+									"        },",
+									"      body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify({ accounts: [ { account: \"1010\", category : \"cash\",",
+									"            description: \"Cash - Operating\", balanceType: \"d\" }]})",
+									"      }",
+									"    };",
+									"    ",
+									"    pm.sendRequest(coa, function (err, res) {",
+									"        ",
+									"    });",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api_url}}/api/coa",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"coa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "COA - Create a coa",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "46ebfff4-d0bc-428b-92f5-dc1f44d4eac2",
+								"exec": [
+									"",
+									"var jsonData = pm.response.json();",
+									"    ",
+									"pm.test(\"Success\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+									"});",
+									"",
+									"pm.test(\"coa was saved\", function () {",
+									"    pm.expect(jsonData.accounts.length).to.eql(31);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6ff6d387-6191-486b-b7e9-ecea1ae063a8",
+								"exec": [
+									"const clear = {",
+									"  url: pm.environment.get(\"api_url\") + '/api/coa/clear',",
+									"  method: 'POST',",
+									"  header: {",
+									"        \"Authorization\": \"Bearer \" + pm.environment.get(\"api_token\")",
+									"        }",
+									"};",
+									"",
+									"pm.sendRequest(clear, function (err, res) {",
+									"    ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"accounts\": [\n        {\n            \"account\": \"1010\",\n            \"category\" : \"cash\",\n            \"description\": \"Cash - Operating\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"1030\",\n            \"category\" : \"cash\",\n            \"description\": \"Petty Cash\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"1210\",\n            \"category\" : \"a/r\",\n            \"description\": \"Trade\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"1220\",\n            \"category\" : \"a/r\",\n            \"description\": \"Notes Receivable\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"1290\",\n            \"category\" : \"a/r\",\n            \"description\": \"Allowance for Uncollectibles\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"1310\",\n            \"category\" : \"inventory\",\n            \"description\": \"Reserved\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"1320\",\n            \"category\" : \"inventory\",\n            \"description\": \"Work-in-Progress\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"1330\",\n            \"category\" : \"inventory\",\n            \"description\": \"Finished Goods\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"1510\",\n            \"category\" : \"ppe\",\n            \"description\": \"Buildings\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"1520\",\n            \"category\" : \"ppe\",\n            \"description\": \"Machinery & Equipment\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"1530\",\n            \"category\" : \"ppe\",\n            \"description\": \"Vehicles\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"1610\",\n            \"category\" : \"accum\",\n            \"description\": \"Buildings\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"1620\",\n            \"category\" : \"accum\",\n            \"description\": \"Machinery & Equipment\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"1630\",\n            \"category\" : \"accum\",\n            \"description\": \"Vehicles\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"2110\",\n            \"category\" : \"a/p\",\n            \"description\": \"Trade\",\n            \"balanceType\": \"c\"\n        },\n        {\n            \"account\": \"2160\",\n            \"category\" : \"a/p\",\n            \"description\": \"Notes Payable\",\n            \"balanceType\": \"c\"\n        },\n        {\n            \"account\": \"2710\",\n            \"category\" : \"ltd\",\n            \"description\": \"Notes Payable\",\n            \"balanceType\": \"c\"\n        },\n        {\n            \"account\": \"3300\",\n            \"category\" : \"oe\",\n            \"description\": \"Capital\",\n            \"balanceType\": \"c\"\n        },\n        {\n            \"account\": \"3900\",\n            \"category\" : \"oe\",\n            \"description\": \"Retained Earnings\",\n            \"balanceType\": \"c\"\n        },\n        {\n            \"account\": \"4010\",\n            \"category\" : \"rev\",\n            \"description\": \"Sales Revenue\",\n            \"balanceType\": \"c\"\n        },\n        {\n            \"account\": \"4700\",\n            \"category\" : \"rev\",\n            \"description\": \"Other Income\",\n            \"balanceType\": \"c\"\n        },\n        {\n            \"account\": \"5010\",\n            \"category\" : \"cogs\",\n            \"description\": \"Cost of Inventory\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"5700\",\n            \"category\" : \"cogs\",\n            \"description\": \"Freight\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"6010\",\n            \"category\" : \"exp\",\n            \"description\": \"Advertising\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"6200\",\n            \"category\" : \"exp\",\n            \"description\": \"Bank Charges\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"6300\",\n            \"category\" : \"exp\",\n            \"description\": \"Commissions\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"6650\",\n            \"category\" : \"exp\",\n            \"description\": \"Insurance\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"6700\",\n            \"category\" : \"exp\",\n            \"description\": \"Interest\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"6900\",\n            \"category\" : \"exp\",\n            \"description\": \"Office Expense\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"7300\",\n            \"category\" : \"exp\",\n            \"description\": \"Salaries\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"7500\",\n            \"category\" : \"exp\",\n            \"description\": \"Utilities\",\n            \"balanceType\": \"d\"\n        }\n    ]\n}\n"
+						},
+						"url": {
+							"raw": "{{api_url}}/api/coa",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"coa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "COA - GetAll - No Scripts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0827e6ac-e70c-42c2-b6a8-dfa10e50755f",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0f5b891d-f545-4fdb-87c3-bd26764e24aa",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api_url}}/api/coa",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"coa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "COA - Clear Repo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f782f5c5-b690-403a-b869-b32f9603cffb",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "85a304da-4239-4622-be4e-f92c1fbb2832",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api_url}}/api/coa/clear",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"coa",
+								"clear"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Account Transaction CRUD",
+			"item": [
+				{
+					"name": "Setup Api Token - transactions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7f9db41d-550b-486d-9871-511b7dfe6456",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Store Token\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"api_token\", jsonData.access_token);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "demo123abc",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "resourceOwner",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "scope",
+									"value": "transaction chartofaccounts",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{api_user}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{api_password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{identity_url}}/connect/token",
+							"host": [
+								"{{identity_url}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TRN - Create a COA",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "46ebfff4-d0bc-428b-92f5-dc1f44d4eac2",
+								"exec": [
+									"",
+									"var jsonData = pm.response.json();",
+									"    ",
+									"pm.test(\"Success\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+									"});",
+									"",
+									"pm.test(\"coa was saved\", function () {",
+									"    pm.expect(jsonData.accounts.length).to.eql(31);",
+									"    ",
+									"    pm.environment.set(\"test_coa_id\", jsonData.id);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6ff6d387-6191-486b-b7e9-ecea1ae063a8",
+								"exec": [
+									"const clear = {",
+									"  url: pm.environment.get(\"api_url\") + '/api/coa/clear',",
+									"  method: 'POST',",
+									"  header: {",
+									"        \"Authorization\": \"Bearer \" + pm.environment.get(\"api_token\")",
+									"        }",
+									"};",
+									"",
+									"pm.sendRequest(clear, function (err, res) {",
+									"    ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"accounts\": [\n        {\n            \"account\": \"1010\",\n            \"category\" : \"cash\",\n            \"description\": \"Cash - Operating\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"1030\",\n            \"category\" : \"cash\",\n            \"description\": \"Petty Cash\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"1210\",\n            \"category\" : \"a/r\",\n            \"description\": \"Trade\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"1220\",\n            \"category\" : \"a/r\",\n            \"description\": \"Notes Receivable\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"1290\",\n            \"category\" : \"a/r\",\n            \"description\": \"Allowance for Uncollectibles\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"1310\",\n            \"category\" : \"inventory\",\n            \"description\": \"Reserved\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"1320\",\n            \"category\" : \"inventory\",\n            \"description\": \"Work-in-Progress\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"1330\",\n            \"category\" : \"inventory\",\n            \"description\": \"Finished Goods\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"1510\",\n            \"category\" : \"ppe\",\n            \"description\": \"Buildings\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"1520\",\n            \"category\" : \"ppe\",\n            \"description\": \"Machinery & Equipment\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"1530\",\n            \"category\" : \"ppe\",\n            \"description\": \"Vehicles\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"1610\",\n            \"category\" : \"accum\",\n            \"description\": \"Buildings\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"1620\",\n            \"category\" : \"accum\",\n            \"description\": \"Machinery & Equipment\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"1630\",\n            \"category\" : \"accum\",\n            \"description\": \"Vehicles\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"2110\",\n            \"category\" : \"a/p\",\n            \"description\": \"Trade\",\n            \"balanceType\": \"c\"\n        },\n        {\n            \"account\": \"2160\",\n            \"category\" : \"a/p\",\n            \"description\": \"Notes Payable\",\n            \"balanceType\": \"c\"\n        },\n        {\n            \"account\": \"2710\",\n            \"category\" : \"ltd\",\n            \"description\": \"Notes Payable\",\n            \"balanceType\": \"c\"\n        },\n        {\n            \"account\": \"3300\",\n            \"category\" : \"oe\",\n            \"description\": \"Capital\",\n            \"balanceType\": \"c\"\n        },\n        {\n            \"account\": \"3900\",\n            \"category\" : \"oe\",\n            \"description\": \"Retained Earnings\",\n            \"balanceType\": \"c\"\n        },\n        {\n            \"account\": \"4010\",\n            \"category\" : \"rev\",\n            \"description\": \"Sales Revenue\",\n            \"balanceType\": \"c\"\n        },\n        {\n            \"account\": \"4700\",\n            \"category\" : \"rev\",\n            \"description\": \"Other Income\",\n            \"balanceType\": \"c\"\n        },\n        {\n            \"account\": \"5010\",\n            \"category\" : \"cogs\",\n            \"description\": \"Cost of Inventory\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"5700\",\n            \"category\" : \"cogs\",\n            \"description\": \"Freight\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"6010\",\n            \"category\" : \"exp\",\n            \"description\": \"Advertising\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"6200\",\n            \"category\" : \"exp\",\n            \"description\": \"Bank Charges\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"6300\",\n            \"category\" : \"exp\",\n            \"description\": \"Commissions\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"6650\",\n            \"category\" : \"exp\",\n            \"description\": \"Insurance\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"6700\",\n            \"category\" : \"exp\",\n            \"description\": \"Interest\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"6900\",\n            \"category\" : \"exp\",\n            \"description\": \"Office Expense\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"7300\",\n            \"category\" : \"exp\",\n            \"description\": \"Salaries\",\n            \"balanceType\": \"d\"\n        },\n        {\n            \"account\": \"7500\",\n            \"category\" : \"exp\",\n            \"description\": \"Utilities\",\n            \"balanceType\": \"d\"\n        }\n    ]\n}\n"
+						},
+						"url": {
+							"raw": "{{api_url}}/api/coa",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"coa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TRN - Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "46ebfff4-d0bc-428b-92f5-dc1f44d4eac2",
+								"exec": [
+									"",
+									"var jsonData = pm.response.json();",
+									"    ",
+									"pm.test(\"Success\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+									"});",
+									"",
+									"pm.test(\"transaction was saved\", function () {",
+									"   // pm.expect(jsonData.accounts.length).to.eql(31);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6ff6d387-6191-486b-b7e9-ecea1ae063a8",
+								"exec": [
+									"const clear = {",
+									"  url: pm.environment.get(\"api_url\") + '/api/transaction/clear',",
+									"  method: 'POST',",
+									"  header: {",
+									"        \"Authorization\": \"Bearer \" + pm.environment.get(\"api_token\")",
+									"        }",
+									"};",
+									"",
+									"pm.sendRequest(clear, function (err, res) {",
+									"    ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"realm\": \"{{realm1}}\",\n\t\"chartOfAccountsId\" : \"{{test_coa_id}}\",\n\t\"transactionDate\" : \"2019-06-26\",\n\t\"transactions\" : [\n\t\t{\n\t\t\t\"amount\" : 25.00,\n\t\t\t\"account\" : \"1010\",\n\t\t\t\"reference\" : \"150\",\n\t\t\t\"referenceType\" : \"R\"\n\t\t},\n\t\t{\n\t\t\t\"amount\" : -25.00,\n\t\t\t\"account\" : \"2110\",\n\t\t\t\"reference\" : \"150\",\n\t\t\t\"referenceType\" : \"R\"\n\t\t}\n\t]\n}\n"
+						},
+						"url": {
+							"raw": "{{api_url}}/api/transaction",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TRN - GetAll - No Scripts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0827e6ac-e70c-42c2-b6a8-dfa10e50755f",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0f5b891d-f545-4fdb-87c3-bd26764e24aa",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api_url}}/api/transaction",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TRN - Create bad COA Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "46ebfff4-d0bc-428b-92f5-dc1f44d4eac2",
+								"exec": [
+									"",
+									"pm.test(\"Expect 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6ff6d387-6191-486b-b7e9-ecea1ae063a8",
+								"exec": [
+									"const clear = {",
+									"  url: pm.environment.get(\"api_url\") + '/api/transaction/clear',",
+									"  method: 'POST',",
+									"  header: {",
+									"        \"Authorization\": \"Bearer \" + pm.environment.get(\"api_token\")",
+									"        }",
+									"};",
+									"",
+									"pm.sendRequest(clear, function (err, res) {",
+									"    ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"realm\": \"{{realm1}}\",\n\t\"chartOfAccountsId\" : \"junk\",\n\t\"transactionDate\" : \"2019-06-26\",\n\t\"transactions\" : [\n\t\t{\n\t\t\t\"amount\" : 25.00,\n\t\t\t\"account\" : \"1000\",\n\t\t\t\"reference\" : \"150\",\n\t\t\t\"referenceType\" : \"R\"\n\t\t},\n\t\t{\n\t\t\t\"amount\" : -25.00,\n\t\t\t\"account\" : \"2000\",\n\t\t\t\"reference\" : \"150\",\n\t\t\t\"referenceType\" : \"R\"\n\t\t}\n\t]\n}\n"
+						},
+						"url": {
+							"raw": "{{api_url}}/api/transaction",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TRN - Clear Repo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f782f5c5-b690-403a-b869-b32f9603cffb",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "85a304da-4239-4622-be4e-f92c1fbb2832",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api_url}}/api/transaction/clear",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"transaction",
+								"clear"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Export/Import",
+			"item": [
+				{
+					"name": "TB Export - Expect 403",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0827e6ac-e70c-42c2-b6a8-dfa10e50755f",
+								"exec": [
+									"",
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0f5b891d-f545-4fdb-87c3-bd26764e24aa",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api_url}}/api/trialbalance/export",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"trialbalance",
+								"export"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Setup Api Token - TrialBalance",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7f9db41d-550b-486d-9871-511b7dfe6456",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Store Token\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"api_token\", jsonData.access_token);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "demo123abc",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "resourceOwner",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "scope",
+									"value": "trialbalance chartofaccounts",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{api_user}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{api_password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{identity_url}}/connect/token",
+							"host": [
+								"{{identity_url}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TB - Export",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0827e6ac-e70c-42c2-b6a8-dfa10e50755f",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response contains %PDF\", function () {",
+									"    var jsonData = pm.response.text();",
+									"    pm.expect(jsonData.substring(0,4)).to.eql(\"%PDF\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0f5b891d-f545-4fdb-87c3-bd26764e24aa",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api_url}}/api/trialbalance/export",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"trialbalance",
+								"export"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TB - Import",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0827e6ac-e70c-42c2-b6a8-dfa10e50755f",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"trial balance was imported\", function () {",
+									"",
+									"    ",
+									"    pm.expect(jsonData.branch).to.eql('1');",
+									"    pm.expect(jsonData.period).to.eql(201807);",
+									"    pm.expect(jsonData.realm).to.eql(pm.environment.get(\"realm1\"));",
+									"    pm.expect(jsonData.entries.length).to.eql(4);",
+									"    ",
+									"    pm.expect(jsonData.entries[0].accountNumber).to.eql('1000');",
+									"    pm.expect(jsonData.entries[0].department).to.eql('');",
+									"    pm.expect(jsonData.entries[0].amount).to.eql(1234.56);",
+									"    pm.expect(jsonData.entries[1].accountNumber).to.eql('1100');",
+									"    pm.expect(jsonData.entries[1].department).to.eql('');",
+									"    pm.expect(jsonData.entries[1].amount).to.eql(53.56);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0f5b891d-f545-4fdb-87c3-bd26764e24aa",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"branch\": \"1\",\n    \"period\": 201807,\n    \"entries\": [\n        {\n            \"accountNumber\": \"1000\",\n            \"department\": \"\",\n            \"amount\": 1234.56\n        },\n        {\n            \"accountNumber\": \"1100\",\n            \"department\": \"\",\n            \"amount\": 53.56\n        },\n        {\n            \"accountNumber\": \"1200\",\n            \"department\": \"\",\n            \"amount\": -53.56\n        },\n        {\n            \"accountNumber\": \"1300\",\n            \"department\": \"\",\n            \"amount\": -1234.56\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/api/trialbalance/upload",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"trialbalance",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{api_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "5c2c37d5-d90c-402e-bedf-8a0d46b38e8c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "fe119920-0a61-454a-962d-4d032d88948b",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

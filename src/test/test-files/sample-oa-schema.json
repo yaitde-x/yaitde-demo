@@ -1,0 +1,731 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Get Off My Lawn!",
+        "description": "mocks and such",
+        "version": "0.0.1"
+    },
+    "components": {
+        "securitySchemes": {
+            "BearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            },
+            "apiKey": {
+                "type": "apiKey",
+                "name": "apiKey",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "mock",
+            "description": "Mock Api end-points"
+        },
+        {
+            "name": "api",
+            "description": "Test Api end-points"
+        }
+    ],
+    "externalDocs": {
+        "url": "https://kb.yaitde.io",
+        "description": "stuff blah"
+    },
+    "security": [
+        "bearer"
+    ],
+    "servers": [
+        {
+            "url": "https://api.getoffmylawn.xyz/"
+        }
+    ],
+    "paths": {
+        "/api/{domain}/*": {
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                },
+                "summary": "You can use this endpoint to cleanup files at the end of a test run, etc.",
+                "description": "delete file from the mock repository",
+                "tags": [
+                    "mock"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "domain",
+                        "in": "path",
+                        "required": true,
+                        "description": "just a way to categorize the data really",
+                        "schema": {
+                            "type": "string",
+                            "description": "just a way to categorize the data really"
+                        }
+                    },
+                    {
+                        "name": "*",
+                        "in": "path",
+                        "required": true,
+                        "description": "relative path into the mock repository",
+                        "schema": {
+                            "type": "string",
+                            "description": "relative path into the mock repository"
+                        }
+                    }
+                ]
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                },
+                "summary": "the contents of the file in the repository is in the body of the response",
+                "description": "returns a file from the mock repository",
+                "tags": [
+                    "mock"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "domain",
+                        "in": "path",
+                        "required": true,
+                        "description": "just a way to categorize the data really",
+                        "schema": {
+                            "type": "string",
+                            "description": "just a way to categorize the data really"
+                        }
+                    },
+                    {
+                        "name": "*",
+                        "in": "path",
+                        "required": true,
+                        "description": "relative path into the mock repository",
+                        "schema": {
+                            "type": "string",
+                            "description": "relative path into the mock repository"
+                        }
+                    }
+                ]
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                },
+                "description": "saves a file into the mock data repository",
+                "tags": [
+                    "mock"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "domain",
+                        "in": "path",
+                        "required": true,
+                        "description": "just a way to categorize the data really",
+                        "schema": {
+                            "type": "string",
+                            "description": "just a way to categorize the data really"
+                        }
+                    },
+                    {
+                        "name": "*",
+                        "in": "path",
+                        "required": true,
+                        "description": "relative path into the mock repository",
+                        "schema": {
+                            "type": "string",
+                            "description": "relative path into the mock repository"
+                        }
+                    }
+                ]
+            }
+        },
+        "/api/echo": {
+            "delete": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "method": {
+                                            "type": "string"
+                                        },
+                                        "params": {
+                                            "type": "object",
+                                            "additionalProperties": true
+                                        },
+                                        "headers": {
+                                            "type": "object",
+                                            "additionalProperties": true
+                                        },
+                                        "body": {
+                                            "type": "object",
+                                            "additionalProperties": true
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "responds with a model that contains all the things you sent it",
+                "description": "echoes what you send it",
+                "tags": [
+                    "mock"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": [
+                            {
+                                "Authorization": "Bearer  {{token}}"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "method": {
+                                            "type": "string"
+                                        },
+                                        "params": {
+                                            "type": "object",
+                                            "additionalProperties": true
+                                        },
+                                        "headers": {
+                                            "type": "object",
+                                            "additionalProperties": true
+                                        },
+                                        "body": {
+                                            "type": "object",
+                                            "additionalProperties": true
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "responds with a model that contains all the things you sent it",
+                "description": "echoes what you send it",
+                "tags": [
+                    "mock"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": [
+                            {
+                                "Authorization": "Bearer  {{token}}"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "head": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "method": {
+                                            "type": "string"
+                                        },
+                                        "params": {
+                                            "type": "object",
+                                            "additionalProperties": true
+                                        },
+                                        "headers": {
+                                            "type": "object",
+                                            "additionalProperties": true
+                                        },
+                                        "body": {
+                                            "type": "object",
+                                            "additionalProperties": true
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "responds with a model that contains all the things you sent it",
+                "description": "echoes what you send it",
+                "tags": [
+                    "mock"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": [
+                            {
+                                "Authorization": "Bearer  {{token}}"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "patch": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "method": {
+                                            "type": "string"
+                                        },
+                                        "params": {
+                                            "type": "object",
+                                            "additionalProperties": true
+                                        },
+                                        "headers": {
+                                            "type": "object",
+                                            "additionalProperties": true
+                                        },
+                                        "body": {
+                                            "type": "object",
+                                            "additionalProperties": true
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "responds with a model that contains all the things you sent it",
+                "description": "echoes what you send it",
+                "tags": [
+                    "mock"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": [
+                            {
+                                "Authorization": "Bearer  {{token}}"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "method": {
+                                            "type": "string"
+                                        },
+                                        "params": {
+                                            "type": "object",
+                                            "additionalProperties": true
+                                        },
+                                        "headers": {
+                                            "type": "object",
+                                            "additionalProperties": true
+                                        },
+                                        "body": {
+                                            "type": "object",
+                                            "additionalProperties": true
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "responds with a model that contains all the things you sent it",
+                "description": "echoes what you send it",
+                "tags": [
+                    "mock"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": [
+                            {
+                                "Authorization": "Bearer  {{token}}"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "put": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "method": {
+                                            "type": "string"
+                                        },
+                                        "params": {
+                                            "type": "object",
+                                            "additionalProperties": true
+                                        },
+                                        "headers": {
+                                            "type": "object",
+                                            "additionalProperties": true
+                                        },
+                                        "body": {
+                                            "type": "object",
+                                            "additionalProperties": true
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "responds with a model that contains all the things you sent it",
+                "description": "echoes what you send it",
+                "tags": [
+                    "mock"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": [
+                            {
+                                "Authorization": "Bearer  {{token}}"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "options": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "method": {
+                                            "type": "string"
+                                        },
+                                        "params": {
+                                            "type": "object",
+                                            "additionalProperties": true
+                                        },
+                                        "headers": {
+                                            "type": "object",
+                                            "additionalProperties": true
+                                        },
+                                        "body": {
+                                            "type": "object",
+                                            "additionalProperties": true
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "responds with a model that contains all the things you sent it",
+                "description": "echoes what you send it",
+                "tags": [
+                    "mock"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": [
+                            {
+                                "Authorization": "Bearer  {{token}}"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "/api/status/{statusCode}": {
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                },
+                "description": "returns the HTTP status code you tell it to.",
+                "tags": [
+                    "mock"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "statusCode",
+                        "in": "path",
+                        "required": true,
+                        "description": "the status code you want returned",
+                        "schema": {
+                            "type": "integer",
+                            "description": "the status code you want returned"
+                        }
+                    }
+                ]
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                },
+                "description": "returns the HTTP status code you tell it to.",
+                "tags": [
+                    "mock"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "statusCode",
+                        "in": "path",
+                        "required": true,
+                        "description": "the status code you want returned",
+                        "schema": {
+                            "type": "integer",
+                            "description": "the status code you want returned"
+                        }
+                    }
+                ]
+            },
+            "head": {
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                },
+                "description": "returns the HTTP status code you tell it to.",
+                "tags": [
+                    "mock"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "statusCode",
+                        "in": "path",
+                        "required": true,
+                        "description": "the status code you want returned",
+                        "schema": {
+                            "type": "integer",
+                            "description": "the status code you want returned"
+                        }
+                    }
+                ]
+            },
+            "patch": {
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                },
+                "description": "returns the HTTP status code you tell it to.",
+                "tags": [
+                    "mock"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "statusCode",
+                        "in": "path",
+                        "required": true,
+                        "description": "the status code you want returned",
+                        "schema": {
+                            "type": "integer",
+                            "description": "the status code you want returned"
+                        }
+                    }
+                ]
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                },
+                "description": "returns the HTTP status code you tell it to.",
+                "tags": [
+                    "mock"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "statusCode",
+                        "in": "path",
+                        "required": true,
+                        "description": "the status code you want returned",
+                        "schema": {
+                            "type": "integer",
+                            "description": "the status code you want returned"
+                        }
+                    }
+                ]
+            },
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                },
+                "description": "returns the HTTP status code you tell it to.",
+                "tags": [
+                    "mock"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "statusCode",
+                        "in": "path",
+                        "required": true,
+                        "description": "the status code you want returned",
+                        "schema": {
+                            "type": "integer",
+                            "description": "the status code you want returned"
+                        }
+                    }
+                ]
+            },
+            "options": {
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                },
+                "description": "returns the HTTP status code you tell it to.",
+                "tags": [
+                    "mock"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "statusCode",
+                        "in": "path",
+                        "required": true,
+                        "description": "the status code you want returned",
+                        "schema": {
+                            "type": "integer",
+                            "description": "the status code you want returned"
+                        }
+                    }
+                ]
+            }
+        },
+        "/auth": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "userId": {
+                                        "type": "string"
+                                    },
+                                    "secret": {
+                                        "type": "string"
+                                    },
+                                    "scope": {
+                                        "type": "string",
+                                        "enum": [
+                                            "mock",
+                                            "api",
+                                            "runner"
+                                        ]
+                                    }
+                                },
+                                "additionalProperties": false,
+                                "required": [
+                                    "userId",
+                                    "secret",
+                                    "scope"
+                                ]
+                            }
+                        }
+                    },
+                    "required": true
+                }
+            }
+        }
+    }
+}

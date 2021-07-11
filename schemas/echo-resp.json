@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://api.getoffmylawn.xyz/api/schemas/echo-resp.json",
+    "type": "object",
+    "properties": {
+        "method": {
+            "type": "string"
+        },
+        "params" : { "type" : "object", "additionalProperties": true },
+        "headers" : { "type" : "object", "additionalProperties": true },
+        "body" : { "type" : "object", "additionalProperties": true },
+        "diag" : { "type" : "object", "additionalProperties": true }
+    },
+    "additionalProperties": false
+}

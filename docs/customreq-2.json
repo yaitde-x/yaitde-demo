@@ -1,0 +1,27 @@
+{
+    "headers": {
+        "host": "yaitde-eo.ngrok.io",
+        "accept": "*/*",
+        "content-type": "application/json",
+        "user-agent": "User-Agent: GitHub-Hookshot/760256b",
+        "x-hub-signature": "sha1=2b91267ac665588f2b6e8c20c7cbf4905b6e9613",
+        "x-github-delivery": "62",
+        "x-github-event": "push",
+        "content-length": "276",
+        "x-forwarded-proto": "https",
+        "x-forwarded-for": "40.75.83.20"
+    },
+    "payload": {
+        "event": "push",
+        "repository": "yaitde/yaitde-agent",
+        "commit": "89ed83e9479681e877a9cdbca4fd83ace7042924",
+        "ref": "refs/heads/master",
+        "head": "",
+        "workflow": "Publish Docker image",
+        "data": {
+            "buildId": "62",
+            "applicationName": "master",
+            "imagePath": "ghcr.io/yaitde/yaitde-agent:master-62"
+        }
+    }
+}

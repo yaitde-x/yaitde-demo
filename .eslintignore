@@ -1,0 +1,7 @@
+# don't ever lint node_modules
+node_modules
+# don't lint build output 
+build
+.eslintrc.js
+jest.config.js
+src/test/test-files

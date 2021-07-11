@@ -1,0 +1,2005 @@
+{
+	"info": {
+		"_postman_id": "a062c2f9-b49d-476e-9917-43180ea7b175",
+		"name": "goml-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "setup",
+			"item": [
+				{
+					"name": "token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer SomeToken",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"{{user}}\",\n    \"scope\": \"mock\",\n    \"secret\": \"{{secret}}\",\n    \"instance\" : \"{{workspace}}\"\n}"
+						},
+						"url": {
+							"raw": "{{authUrl}}/auth",
+							"host": [
+								"{{authUrl}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api1 up",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/ops/up",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"ops",
+								"up"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "test",
+			"item": [
+				{
+					"name": "upsert with an id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"218956eb2ffd48e3a261cead6bf4f9ba\",\n    \"request\": {\n        \"url\": \"https://linda.getoffmylawn.xyz/api/diag/empty-array.json\",\n        \"headers\": [],\n        \"method\": \"POST\",\n        \"body\": {\n            \"type\": \"raw\",\n            \"raw\": \"[\\n]\"\n        }\n    },\n    \"description\": \"write file - 401\",\n    \"scripts\": [\n        {\n            \"id\": \"eab666c07f0a403492f5e9e8965bc786\",\n            \"on\": \"test\",\n            \"data\": \"pm.test(\\\"Status code is 401\\\", function () {\\n    pm.response.to.have.status(401);\\n});\\n\",\n            \"type\": \"js\",\n            \"disabled\": false,\n            \"description\": \"\"\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/test",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upsert with no id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"request\": {\n        \"url\": \"https://linda.getoffmylawn.xyz/api/diag/empty-array.json\",\n        \"headers\": [],\n        \"method\": \"POST\",\n        \"body\": {\n            \"type\": \"raw\",\n            \"raw\": \"[\\n]\"\n        }\n    },\n    \"description\": \"write file - 401\",\n    \"scripts\": [\n        {\n            \"id\": \"eab666c07f0a403492f5e9e8965bc786\",\n            \"on\": \"test\",\n            \"data\": \"pm.test(\\\"Status code is 401\\\", function () {\\n    pm.response.to.have.status(401);\\n});\\n\",\n            \"type\": \"js\",\n            \"disabled\": false,\n            \"description\": \"\"\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/test",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upsert with script id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"request\": {\n        \"url\": \"https://linda.getoffmylawn.xyz/api/diag/empty-array.json\",\n        \"headers\": [],\n        \"method\": \"POST\",\n        \"body\": {\n            \"type\": \"raw\",\n            \"raw\": \"[\\n]\"\n        }\n    },\n    \"description\": \"write file - 401\",\n    \"scripts\": [\n        \"eab666c07f0a403492f5e9e8965bc786\"\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/test",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upsert with invalid script id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"request\": {\n        \"url\": \"https://linda.getoffmylawn.xyz/api/diag/empty-array.json\",\n        \"headers\": [],\n        \"method\": \"POST\",\n        \"body\": {\n            \"type\": \"raw\",\n            \"raw\": \"[\\n]\"\n        }\n    },\n    \"description\": \"write file - 401\",\n    \"scripts\": [\n        \"eab666c07f0a403492f5e9e8965bcbad\"\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/test",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get test by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/test/218956eb2ffd48e3a261cead6bf4f9ba?expand=true",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"test",
+								"218956eb2ffd48e3a261cead6bf4f9ba"
+							],
+							"query": [
+								{
+									"key": "expand",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list tests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/tests",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"tests"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete test by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/test/218956eb2ffd48e3a261cead6bf4f9ba",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"test",
+								"218956eb2ffd48e3a261cead6bf4f9ba"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete test by id - cascade",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/test/218956eb2ffd48e3a261cead6bf4f9ba",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"test",
+								"218956eb2ffd48e3a261cead6bf4f9ba"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "environment",
+			"item": [
+				{
+					"name": "upsert env with an id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"silly-muskrat\",\n    \"name\": \"silly-muskrat name\",\n    \"category\": \"prod\",\n    \"description\": \"silly-muskrat description\",\n    \"group\": \"Cloud\",\n    \"items\": [\n        {\n            \"name\": \"url\",\n            \"value\": \"http://silly-muskrat.land\"\n        },\n        {\n            \"name\": \"authKey\",\n            \"value\": \"ravensareblack\"\n        },\n        {\n            \"name\": \"timeOut\",\n            \"value\": 1500\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/environment",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"environment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upsert with no id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Another Test Environment\",\n    \"description\" : \"test desc\",\n    \"category\": \"dev\",\n    \"group\": \"ERP\",\n    \"items\": [\n        {\n            \"name\": \"isAnItem\",\n            \"value\": false\n        },\n        {\n        \t\"name\" : \"someKey\",\n        \t\"value\" : \"someOtherValue\"\n        },\n        {\n        \t\"name\" : \"someOtherNumber\",\n        \t\"value\" : 20\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/environment",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"environment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get environment by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/environment/test-env-with-id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"environment",
+								"test-env-with-id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list environments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/environments",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"environments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete env by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/environment/test-env-with-id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"environment",
+								"test-env-with-id"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "script",
+			"item": [
+				{
+					"name": "upsert with an id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"jovial-manatee\",\n    \"on\": \"test\",\n    \"data\": \"pm.test(\\\"Status code is 200\\\", function () {\\n    pm.response.to.have.status(200);\\n});\\n\",\n    \"type\": \"js\",\n    \"disabled\": false,\n    \"description\": \"this is a test script\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/script",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"script"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upsert with no id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"on\": \"test\",\n    \"data\": \"pm.test(\\\"Status code is 200\\\", function () {\\n    pm.response.to.have.status(200);\\n});\\n\",\n    \"type\": \"js\",\n    \"disabled\": false,\n    \"description\": \"this is another test script\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/script",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"script"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/script/jovial-manatee",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"script",
+								"jovial-manatee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list scripts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/scripts",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"scripts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete env by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/script/jovial-manatee",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"script",
+								"jovial-manatee"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "collection",
+			"item": [
+				{
+					"name": "upsert with an id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"test-collection\",\n    \"schema\": \"https://schema.getpostman.com/json/collection/v2.1.0/collection.json\",\n    \"tree\": {\n        \"type\": \"f\",\n        \"resourceName\": \"pm-import\",\n        \"children\": [\n            {\n                \"resourceName\": \"token\",\n                \"resourceId\": \"Token\",\n                \"type\": \"x\"\n            },\n            {\n                \"resourceName\": \"echo - app1\",\n                \"resourceId\": \"EchoApp1\",\n                \"type\": \"x\"\n            }\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/collection",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"collection"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upsert new with test ids only",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"schema\": \"https://schema.getpostman.com/json/collection/v2.1.0/collection.json\",\n    \"tree\": {\n        \"type\": \"f\",\n        \"resourceName\": \"pm-import\",\n        \"children\": [\n            {\n                \"resourceName\": \"token\",\n                \"resourceId\": \"Token\",\n                \"type\": \"x\"\n            },\n            {\n                \"resourceName\": \"echo - app1\",\n                \"resourceId\": \"EchoApp1\",\n                \"type\": \"x\"\n            }\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/collection",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"collection"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upsert new with an invalid test id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"schema\": \"https://schema.getpostman.com/json/collection/v2.1.0/collection.json\",\n    \"tree\": {\n        \"type\": \"f\",\n        \"resourceName\": \"upsert new bad test id\",\n        \"children\": [\n            {\n                \"resourceName\": \"1\",\n                \"resourceId\": \"jovial-bad-test-id\",\n                \"type\": \"x\"\n            },\n            {\n                \"resourceName\": \"2\",\n                \"resourceId\": \"also-a-bad-id\",\n                \"type\": \"x\"\n            }\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/collection",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"collection"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upsert full - all new ids",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"schema\": \"https://schema.yaitde.com/json/collection/v0/collection.json\",\n    \"description\" : \"UPFULL Collection\",\n    \"tree\": {\n        \"type\": \"f\",\n        \"resourceName\": \"Upsert Full - All New Ids\",\n        \"children\": [\n            {\n                \"resourceName\": \"token - UPFULL\",\n                \"type\": \"x\",\n                \"data\" : {\n                    \"request\": {\n                        \"url\": \"http://localhost:3000/auth\",\n                        \"headers\": [\n                            {\n                                \"key\": \"Authorization\",\n                                \"value\": \"Bearer SomeToken\",\n                                \"type\": \"text\"\n                            },\n                            {\n                                \"key\": \"Content-Type\",\n                                \"value\": \"application/json\",\n                                \"name\": \"Content-Type\",\n                                \"type\": \"text\"\n                            }\n                        ],\n                        \"method\": \"POST\",\n                        \"body\": {\n                            \"type\": \"raw\",\n                            \"raw\": \"{\\n    \\\"userId\\\": \\\"eo@yaitde.com\\\",\\n    \\\"scope\\\": \\\"mock\\\",\\n    \\\"secret\\\": \\\"6v9y$B&E)H@MbQeThWmZq4t7w!z%C*F-\\\",\\n    \\\"instance\\\" : \\\"my-named-instance\\\"\\n}\"\n                        }\n                    },\n                    \"description\": \"UPFULL Test - Get A Token\",\n                    \"scripts\": [\n                        {\n                            \"on\": \"test\",\n                            \"data\": \"// UPFULL\\npm.test(\\\"Status code is 200\\\", function () {\\n    pm.response.to.have.status(200);\\n});\\n\\nvar jsonData = pm.response.json();\\npm.environment.set(\\\"token\\\", jsonData.token);\\n\",\n                            \"type\": \"js\",\n                            \"disabled\": false,\n                            \"description\": \"This is a script against the UPFULL token test\"\n                        }\n                    ]\n                }\n            },\n            {\n                \"resourceName\": \"UPFULL-echo - app1\",\n                \"type\": \"x\",\n                \"data\" : {\n                    \"request\": {\n                        \"url\": \"http://localhost:3000/api/echo\",\n                        \"headers\": [\n                            {\n                                \"key\": \"Content-Type\",\n                                \"value\": \"application/json\",\n                                \"name\": \"Content-Type\",\n                                \"type\": \"text\"\n                            },\n                            {\n                                \"key\": \"x-yaitde-application\",\n                                \"value\": \"yaitde-mock-master-67\",\n                                \"type\": \"text\"\n                            }\n                        ],\n                        \"method\": \"POST\",\n                        \"body\": {\n                            \"type\": \"raw\",\n                            \"raw\": \"{\\n\\t\\\"test\\\" : \\\"json\\\",\\n\\t\\\"property1\\\" : 5\\n}\"\n                        }\n                    },\n                    \"description\": \"UPFULL Echo to  App1 (mock)\",\n                    \"scripts\": [\n                        {\n                            \"on\": \"test\",\n                            \"data\": \"//UPFULL\\npm.test(\\\"Status code is 200\\\", function () {\\n    pm.response.to.have.status(200);\\n});\\n\",\n                            \"type\": \"js\",\n                            \"disabled\": false,\n                            \"description\": \"This is a script against the UPFULL echo test\"\n                        }\n                    ]\n                }\n            }\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/collection",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"collection"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list collections",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/collections",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"collections"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get collection by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/collection/test-collection",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"collection",
+								"test-collection"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get collection by id - expanded",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/collection/test-collection?expand=true",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"collection",
+								"test-collection"
+							],
+							"query": [
+								{
+									"key": "expand",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete collection by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/collection/test-collection",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"collection",
+								"test-collection"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete collection by id - cascade",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/collection/test-collection?cascade=true",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"collection",
+								"test-collection"
+							],
+							"query": [
+								{
+									"key": "cascade",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "import",
+			"item": [
+				{
+					"name": "import pm collection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"info\": {\n\t\t\"_postman_id\": \"7944b3ba-9675-4ba8-9ffa-c6016ff8785d\",\n\t\t\"name\": \"pm-import\",\n\t\t\"schema\": \"https://schema.getpostman.com/json/collection/v2.1.0/collection.json\"\n\t},\n\t\"item\": [\n\t\t{\n\t\t\t\"name\": \"token\",\n\t\t\t\"event\": [\n\t\t\t\t{\n\t\t\t\t\t\"listen\": \"test\",\n\t\t\t\t\t\"script\": {\n\t\t\t\t\t\t\"id\": \"31b6bd8d-86f5-4487-be81-4764187e5a39\",\n\t\t\t\t\t\t\"exec\": [\n\t\t\t\t\t\t\t\"pm.test(\\\"Status code is 200\\\", function () {\",\n\t\t\t\t\t\t\t\"    pm.response.to.have.status(200);\",\n\t\t\t\t\t\t\t\"});\",\n\t\t\t\t\t\t\t\"\",\n\t\t\t\t\t\t\t\"var jsonData = pm.response.json();\",\n\t\t\t\t\t\t\t\"pm.environment.set(\\\"token\\\", jsonData.token);\"\n\t\t\t\t\t\t],\n\t\t\t\t\t\t\"type\": \"text/javascript\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"request\": {\n\t\t\t\t\"auth\": {\n\t\t\t\t\t\"type\": \"noauth\"\n\t\t\t\t},\n\t\t\t\t\"method\": \"POST\",\n\t\t\t\t\"header\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"key\": \"Authorization\",\n\t\t\t\t\t\t\"value\": \"Bearer SomeToken\",\n\t\t\t\t\t\t\"type\": \"text\"\n\t\t\t\t\t},\n\t\t\t\t\t{\n\t\t\t\t\t\t\"key\": \"Content-Type\",\n\t\t\t\t\t\t\"name\": \"Content-Type\",\n\t\t\t\t\t\t\"value\": \"application/json\",\n\t\t\t\t\t\t\"type\": \"text\"\n\t\t\t\t\t}\n\t\t\t\t],\n\t\t\t\t\"body\": {\n\t\t\t\t\t\"mode\": \"raw\",\n\t\t\t\t\t\"raw\": \"{\\n    \\\"userId\\\": \\\"{{user}}\\\",\\n    \\\"scope\\\": \\\"mock\\\",\\n    \\\"secret\\\": \\\"{{secret}}\\\",\\n    \\\"instance\\\" : \\\"my-named-instance\\\"\\n}\"\n\t\t\t\t},\n\t\t\t\t\"url\": {\n\t\t\t\t\t\"raw\": \"{{authUrl}}/auth\",\n\t\t\t\t\t\"host\": [\n\t\t\t\t\t\t\"{{authUrl}}\"\n\t\t\t\t\t],\n\t\t\t\t\t\"path\": [\n\t\t\t\t\t\t\"auth\"\n\t\t\t\t\t]\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"response\": []\n\t\t},\n\t\t{\n\t\t\t\"name\": \"echo - app1\",\n\t\t\t\"event\": [\n\t\t\t\t{\n\t\t\t\t\t\"listen\": \"test\",\n\t\t\t\t\t\"script\": {\n\t\t\t\t\t\t\"id\": \"52cdd5a0-8e2b-4bf0-a097-4061173bb34f\",\n\t\t\t\t\t\t\"exec\": [\n\t\t\t\t\t\t\t\"pm.test(\\\"Status code is 200\\\", function () {\",\n\t\t\t\t\t\t\t\"    pm.response.to.have.status(200);\",\n\t\t\t\t\t\t\t\"});\"\n\t\t\t\t\t\t],\n\t\t\t\t\t\t\"type\": \"text/javascript\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"request\": {\n\t\t\t\t\"method\": \"POST\",\n\t\t\t\t\"header\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"key\": \"Content-Type\",\n\t\t\t\t\t\t\"name\": \"Content-Type\",\n\t\t\t\t\t\t\"type\": \"text\",\n\t\t\t\t\t\t\"value\": \"application/json\"\n\t\t\t\t\t},\n\t\t\t\t\t{\n\t\t\t\t\t\t\"key\": \"x-yaitde-application\",\n\t\t\t\t\t\t\"type\": \"text\",\n\t\t\t\t\t\t\"value\": \"{{appId}}\"\n\t\t\t\t\t}\n\t\t\t\t],\n\t\t\t\t\"body\": {\n\t\t\t\t\t\"mode\": \"raw\",\n\t\t\t\t\t\"raw\": \"{\\n\\t\\\"test\\\" : \\\"json\\\",\\n\\t\\\"property1\\\" : 5\\n}\"\n\t\t\t\t},\n\t\t\t\t\"url\": {\n\t\t\t\t\t\"raw\": \"{{url}}/api/echo\",\n\t\t\t\t\t\"host\": [\n\t\t\t\t\t\t\"{{url}}\"\n\t\t\t\t\t],\n\t\t\t\t\t\"path\": [\n\t\t\t\t\t\t\"api\",\n\t\t\t\t\t\t\"echo\"\n\t\t\t\t\t]\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"response\": []\n\t\t}\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/import/collection?format=pm&write=false",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"import",
+								"collection"
+							],
+							"query": [
+								{
+									"key": "format",
+									"value": "pm"
+								},
+								{
+									"key": "write",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "execute",
+			"item": [
+				{
+					"name": "run test bundle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"value": "ewogICAgInVzZXJJZCI6ICJlb0B5YWl0ZGUuY29tIiwKICAgICJzY29wZSI6ICJtb2NrIiwKICAgICJpbnN0YW5jZSI6ICJkZWZhdWx0IiwKICAgICJyb2xlIjogImFkbWluIiwKICAgICJpYXQiOiAxNjAzNzY0NDg3LAogICAgImV4cCI6IDE2MDM3NjgwODcsCiAgICAiYXVkIjogImFwaS5nZXRvZmZteWxhd24ueHl6IiwKICAgICJpc3MiOiAiYXBpLmdldG9mZm15bGF3bi54eXoiLAogICAgInN1YiI6ICJlb0B5YWl0ZGUuY29tIiwKICAgICJqdGkiOiAiODRhZTJkNGUtMjQwZS00N2NhLTk1ZjQtNzhkMmE0OTRiNjI0Igp9",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/run/elastic-cricket",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"run",
+								"elastic-cricket"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "run test 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/run2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"run2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "docs",
+			"item": [
+				{
+					"name": "api docs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"info\": {\n\t\t\"_postman_id\": \"7944b3ba-9675-4ba8-9ffa-c6016ff8785d\",\n\t\t\"name\": \"pm-import\",\n\t\t\"schema\": \"https://schema.getpostman.com/json/collection/v2.1.0/collection.json\"\n\t},\n\t\"item\": [\n\t\t{\n\t\t\t\"name\": \"token\",\n\t\t\t\"event\": [\n\t\t\t\t{\n\t\t\t\t\t\"listen\": \"test\",\n\t\t\t\t\t\"script\": {\n\t\t\t\t\t\t\"id\": \"31b6bd8d-86f5-4487-be81-4764187e5a39\",\n\t\t\t\t\t\t\"exec\": [\n\t\t\t\t\t\t\t\"pm.test(\\\"Status code is 200\\\", function () {\",\n\t\t\t\t\t\t\t\"    pm.response.to.have.status(200);\",\n\t\t\t\t\t\t\t\"});\",\n\t\t\t\t\t\t\t\"\",\n\t\t\t\t\t\t\t\"var jsonData = pm.response.json();\",\n\t\t\t\t\t\t\t\"pm.environment.set(\\\"token\\\", jsonData.token);\"\n\t\t\t\t\t\t],\n\t\t\t\t\t\t\"type\": \"text/javascript\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"request\": {\n\t\t\t\t\"auth\": {\n\t\t\t\t\t\"type\": \"noauth\"\n\t\t\t\t},\n\t\t\t\t\"method\": \"POST\",\n\t\t\t\t\"header\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"key\": \"Authorization\",\n\t\t\t\t\t\t\"value\": \"Bearer SomeToken\",\n\t\t\t\t\t\t\"type\": \"text\"\n\t\t\t\t\t},\n\t\t\t\t\t{\n\t\t\t\t\t\t\"key\": \"Content-Type\",\n\t\t\t\t\t\t\"name\": \"Content-Type\",\n\t\t\t\t\t\t\"value\": \"application/json\",\n\t\t\t\t\t\t\"type\": \"text\"\n\t\t\t\t\t}\n\t\t\t\t],\n\t\t\t\t\"body\": {\n\t\t\t\t\t\"mode\": \"raw\",\n\t\t\t\t\t\"raw\": \"{\\n    \\\"userId\\\": \\\"{{user}}\\\",\\n    \\\"scope\\\": \\\"mock\\\",\\n    \\\"secret\\\": \\\"{{secret}}\\\",\\n    \\\"instance\\\" : \\\"my-named-instance\\\"\\n}\"\n\t\t\t\t},\n\t\t\t\t\"url\": {\n\t\t\t\t\t\"raw\": \"{{authUrl}}/auth\",\n\t\t\t\t\t\"host\": [\n\t\t\t\t\t\t\"{{authUrl}}\"\n\t\t\t\t\t],\n\t\t\t\t\t\"path\": [\n\t\t\t\t\t\t\"auth\"\n\t\t\t\t\t]\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"response\": []\n\t\t},\n\t\t{\n\t\t\t\"name\": \"echo - app1\",\n\t\t\t\"event\": [\n\t\t\t\t{\n\t\t\t\t\t\"listen\": \"test\",\n\t\t\t\t\t\"script\": {\n\t\t\t\t\t\t\"id\": \"52cdd5a0-8e2b-4bf0-a097-4061173bb34f\",\n\t\t\t\t\t\t\"exec\": [\n\t\t\t\t\t\t\t\"pm.test(\\\"Status code is 200\\\", function () {\",\n\t\t\t\t\t\t\t\"    pm.response.to.have.status(200);\",\n\t\t\t\t\t\t\t\"});\"\n\t\t\t\t\t\t],\n\t\t\t\t\t\t\"type\": \"text/javascript\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"request\": {\n\t\t\t\t\"method\": \"POST\",\n\t\t\t\t\"header\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"key\": \"Content-Type\",\n\t\t\t\t\t\t\"name\": \"Content-Type\",\n\t\t\t\t\t\t\"type\": \"text\",\n\t\t\t\t\t\t\"value\": \"application/json\"\n\t\t\t\t\t},\n\t\t\t\t\t{\n\t\t\t\t\t\t\"key\": \"x-yaitde-application\",\n\t\t\t\t\t\t\"type\": \"text\",\n\t\t\t\t\t\t\"value\": \"{{appId}}\"\n\t\t\t\t\t}\n\t\t\t\t],\n\t\t\t\t\"body\": {\n\t\t\t\t\t\"mode\": \"raw\",\n\t\t\t\t\t\"raw\": \"{\\n\\t\\\"test\\\" : \\\"json\\\",\\n\\t\\\"property1\\\" : 5\\n}\"\n\t\t\t\t},\n\t\t\t\t\"url\": {\n\t\t\t\t\t\"raw\": \"{{url}}/api/echo\",\n\t\t\t\t\t\"host\": [\n\t\t\t\t\t\t\"{{url}}\"\n\t\t\t\t\t],\n\t\t\t\t\t\"path\": [\n\t\t\t\t\t\t\"api\",\n\t\t\t\t\t\t\"echo\"\n\t\t\t\t\t]\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"response\": []\n\t\t}\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/docs/json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"docs",
+								"json"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "teardown",
+			"item": [
+				{
+					"name": "delete the repo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "{{api1}}"
+							},
+							{
+								"key": "x-yaitde-user",
+								"type": "text",
+								"value": "eyJ1c2VySWQiOiJlb0B5YWl0ZGUuY29tIiwic2NvcGUiOiJtb2NrIiwiaW5zdGFuY2UiOiJteS1uYW1lZC1pbnN0YW5jZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwMzc2NDQ4NywiZXhwIjoxNjAzNzY4MDg3LCJhdWQiOiJhcGkuZ2V0b2ZmbXlsYXduLnh5eiIsImlzcyI6ImFwaS5nZXRvZmZteWxhd24ueHl6Iiwic3ViIjoiZW9AeWFpdGRlLmNvbSIsImp0aSI6Ijg0YWUyZDRlLTI0MGUtNDdjYS05NWY0LTc4ZDJhNDk0YjYyNCJ9Cg==",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/test-repo/clear",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"test-repo",
+								"clear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api1 down",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-yaitde-application",
+								"type": "text",
+								"value": "yaitde-api-master-89"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/ops/down",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"ops",
+								"down"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

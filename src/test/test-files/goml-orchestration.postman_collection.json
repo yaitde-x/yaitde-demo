@@ -1,0 +1,714 @@
+{
+	"info": {
+		"_postman_id": "c8778b9d-20ef-44c4-8bba-48d4982ebb68",
+		"name": "goml-orchestration",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "31b6bd8d-86f5-4487-be81-4764187e5a39",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"token\", jsonData.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer SomeToken",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"{{user}}\",\n    \"scope\": \"mock\",\n    \"secret\": \"{{secret}}\",\n    \"instance\" : \"my-named-instance\"\n}"
+				},
+				"url": {
+					"raw": "{{authUrl}}/auth",
+					"host": [
+						"{{authUrl}}"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "diag",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "52cdd5a0-8e2b-4bf0-a097-4061173bb34f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "x-yaitde-application",
+						"type": "text",
+						"value": "{{appId}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"command\" : \"./docker-containers.sh\",\n\t\"params\" : [],\n\t\"env\" : {  \"RUN_MODE\" : \"-m\", \"AGENT_TYPE\" : \"mock\", \"APP_ID\" : \"master-67\" },\n\t\"commandx\" : \"ls\",\n\t\"paramsx\" : [\"-al\"],\n\t\"envx\" : { \"APP\" : \"router\" },\n\t\"command2\" : \"docker\",\n\t\"params2\" : [\"network\",\"connect\", \"yaitde-mock-master-67-net\", \"yaitde-agent-router\"],\n\t\"env2\" : { \"RUN_MODE\" : \"-m\", \"AGENT_TYPE\" : \"mock\", \"APP_ID\" : \"master-67\" },\n\t\"command3\" : \"docker\",\n\t\"params3\" : [\"network\",\"disc\", \"yaitde-mock-master-67-net\", \"yaitde-agent-router\"],\n\t\"env3\" : { \"RUN_MODE\" : \"-m\", \"AGENT_TYPE\" : \"mock\", \"APP_ID\" : \"master-67\" }\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/ops/diag",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"ops",
+						"diag"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get app instances",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "52cdd5a0-8e2b-4bf0-a097-4061173bb34f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/ops/ls",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"ops",
+						"ls"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get containers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "52cdd5a0-8e2b-4bf0-a097-4061173bb34f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/ops/containers",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"ops",
+						"containers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get images",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "52cdd5a0-8e2b-4bf0-a097-4061173bb34f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/ops/images",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"ops",
+						"images"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get networks",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "52cdd5a0-8e2b-4bf0-a097-4061173bb34f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/ops/networks",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"ops",
+						"networks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rm app instance",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "52cdd5a0-8e2b-4bf0-a097-4061173bb34f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"applicationId\": \"yaitde-agent\",\n    \"branchId\": \"feature-cont-orch\",\n    \"buildId\": \"68\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/ops/rm",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"ops",
+						"rm"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "app1 up",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "52cdd5a0-8e2b-4bf0-a097-4061173bb34f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-yaitde-application",
+						"type": "text",
+						"value": "{{appId}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/ops/up",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"ops",
+						"up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "custom hook",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "52cdd5a0-8e2b-4bf0-a097-4061173bb34f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-yaitde-application",
+						"type": "text",
+						"value": "yaitde-mock-master-67"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"event\": \"push\",\n    \"repository\": \"yaitde/yaitde-agent\",\n    \"commit\": \"34e5eb487e3a6f634a01b69034b6acf98c6526a2\",\n    \"ref\": \"refs/heads/feature-router-v1\",\n    \"head\": \"\",\n    \"workflow\": \"Publish Docker image\",\n    \"data\": {\n        \"buildId\": \"76\",\n        \"applicationName\": \"master\",\n        \"imagePath\": \"ghcr.io/yaitde/yaitde-agent:master-76\"\n    }\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/ops/gh/custom",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"ops",
+						"gh",
+						"custom"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "event hook",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "52cdd5a0-8e2b-4bf0-a097-4061173bb34f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-yaitde-application",
+						"type": "text",
+						"value": "yaitde-mock-master-67"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"prop\" : \"this is a test\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/ops/gh/event",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"ops",
+						"gh",
+						"event"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "echo - app1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "52cdd5a0-8e2b-4bf0-a097-4061173bb34f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "x-yaitde-application",
+						"type": "text",
+						"value": "{{appId}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"test\" : \"json\",\n\t\"property1\" : 5\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/echo",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"echo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "run test bundle",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "52cdd5a0-8e2b-4bf0-a097-4061173bb34f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "x-yaitde-application",
+						"type": "text",
+						"value": "{{appId}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"test\" : \"json\",\n\t\"property1\" : 5\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/echo",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"echo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "echo - app2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "52cdd5a0-8e2b-4bf0-a097-4061173bb34f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "x-yaitde-application",
+						"type": "text",
+						"value": "{{appId2}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"test\" : \"json\",\n\t\"property1\" : 5\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/echo",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"echo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "app1 down",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "52cdd5a0-8e2b-4bf0-a097-4061173bb34f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-yaitde-application",
+						"type": "text",
+						"value": "{{appId}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/ops/down",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"ops",
+						"down"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "app2 down",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "52cdd5a0-8e2b-4bf0-a097-4061173bb34f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-yaitde-application",
+						"type": "text",
+						"value": "{{appId2}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/ops/down",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"ops",
+						"down"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "fb423ead-15c2-4b79-8338-7836a4208374",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "19848c2f-47ec-4a69-ae4b-7995adb4f155",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

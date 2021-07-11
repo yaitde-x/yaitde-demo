@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+
+  yaitde-agent:
+    container_name: yaitde-${AGENT_TYPE}-${APP_ID}
+    image: yaitdex/yaitde-agent:${APP_ID}
+    restart: unless-stopped
+    environment:
+    - RUN_MODE=${RUN_MODE}
+    volumes:
+      - /Users/sakamoto/.yaitde:/usr/src/yaitde
+      - /Users/sakamoto/code/yaitde-test-repo:/usr/src/app/yaitde-repo
+      #- /home/yaitdex/.yaitde:/usr/src/yaitde
+      #- /home/yaitdex/repo:/usr/src/app/yaitde-repo
+    networks:
+      - yaitde-agent-net
+
+networks:
+  yaitde-agent-net:
+    name: yaitde-${AGENT_TYPE}-${APP_ID}-net
+

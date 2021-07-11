@@ -1,0 +1,30 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://api.getoffmylawn.xyz/api/schemas/yaitde-test.json",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "pmid": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "description": {
+            "type": "string"
+        },
+        "request": {
+            "$ref": "/yaitde-request.json"
+        },
+        "scripts": {
+            "$ref": "/yaitde-script.json"
+        }
+    },
+    "required": [
+        "description",
+        "request"
+    ],
+    "additionalProperties": false
+}

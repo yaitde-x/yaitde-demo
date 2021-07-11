@@ -1,0 +1,471 @@
+{
+    "collection": {
+        "id": "869be158d9474a32abd22e9641ee5a8b",
+        "pmid": "4696ec6a-4333-4f26-ba6e-0a1ce5580964",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "tree": {
+            "type": "f",
+            "resourceName": "goml-mock",
+            "children": [
+                {
+                    "resourceName": "token - invalid request",
+                    "resourceId": "-token - invalid request",
+                    "type": "x"
+                },
+                {
+                    "resourceName": "token",
+                    "resourceId": "-token",
+                    "type": "x"
+                },
+                {
+                    "resourceName": "docs",
+                    "resourceId": "-docs",
+                    "type": "x"
+                },
+                {
+                    "resourceName": "write file - 401",
+                    "resourceId": "-write file - 401",
+                    "type": "x"
+                },
+                {
+                    "resourceName": "write file",
+                    "resourceId": "-write file",
+                    "type": "x"
+                },
+                {
+                    "resourceName": "get file",
+                    "resourceId": "-get file",
+                    "type": "x"
+                },
+                {
+                    "resourceName": "get file - 404",
+                    "resourceId": "-get file - 404",
+                    "type": "x"
+                },
+                {
+                    "resourceName": "delete file",
+                    "resourceId": "-delete file",
+                    "type": "x"
+                },
+                {
+                    "resourceName": "echo - (with application header)",
+                    "resourceId": "-echo - (with application header)",
+                    "type": "x"
+                },
+                {
+                    "resourceName": "error",
+                    "resourceId": "-error",
+                    "type": "x"
+                },
+                {
+                    "resourceName": "write schema - test schema",
+                    "resourceId": "-write schema - test schema",
+                    "type": "x"
+                },
+                {
+                    "resourceName": "get test-schema",
+                    "resourceId": "-get test-schema",
+                    "type": "x"
+                },
+                {
+                    "resourceName": "delete the test schema",
+                    "resourceId": "-delete the test schema",
+                    "type": "x"
+                },
+                {
+                    "resourceName": "get an existing schema",
+                    "resourceId": "-get an existing schema",
+                    "type": "x"
+                }
+            ]
+        }
+    },
+    "tests": [
+        {
+            "id": "8e4601c796da4fdba15cda5c386b00e7",
+            "pmid": "token - invalid request",
+            "description": "token - invalid request",
+            "request": {
+                "url": "https://example.com/auth",
+                "headers": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer SomeToken",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "name": "Content-Type",
+                        "type": "text"
+                    }
+                ],
+                "method": "POST",
+                "body": {
+                    "type": "raw",
+                    "raw": "{\n    \"userId\": \"ks@yaitde.com\",\n    \"scope\": \"bad\",\n    \"secret\": \"bQeThWmZq4t7w!z%C*F-JaNcRfUjXn2r\"\n}"
+                }
+            },
+            "scripts": [
+                {
+                    "id": "dc03681f293045bba4f3006016c1fbb8",
+                    "pmid": "31b6bd8d-86f5-4487-be81-4764187e5a39",
+                    "on": "test",
+                    "data": "pm.test(\"Status code is 400\", function () {\n    pm.response.to.have.status(400);\n});\n\n",
+                    "type": "js",
+                    "disabled": false,
+                    "description": ""
+                }
+            ]
+        },
+        {
+            "id": "7f53baf8c6b94761b445f62e9dad979a",
+            "pmid": "token",
+            "description": "token",
+            "request": {
+                "url": "https://example.com/auth",
+                "headers": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer SomeToken",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "name": "Content-Type",
+                        "type": "text"
+                    }
+                ],
+                "method": "POST",
+                "body": {
+                    "type": "raw",
+                    "raw": "{\n    \"userId\": \"ks@yaitde.com\",\n    \"scope\": \"mock\",\n    \"secret\": \"bQeThWmZq4t7w!z%C*F-JaNcRfUjXn2r\",\n    \"instance\" : \"my-named-instance\"\n}"
+                }
+            },
+            "scripts": [
+                {
+                    "id": "9afa3a8e7e48421c9251bb8c12a2ff77",
+                    "pmid": "31b6bd8d-86f5-4487-be81-4764187e5a39",
+                    "on": "test",
+                    "data": "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\nvar jsonData = pm.response.json();\npm.environment.set(\"token\", jsonData.token);\n",
+                    "type": "js",
+                    "disabled": false,
+                    "description": ""
+                }
+            ]
+        },
+        {
+            "id": "e125222419b3400ba19447a8b8bf95c9",
+            "pmid": "docs",
+            "description": "docs",
+            "request": {
+                "url": "https://example.com/docs/json",
+                "headers": [],
+                "method": "GET",
+                "body": {
+                    "type": "raw",
+                    "raw": ""
+                }
+            },
+            "scripts": [
+                {
+                    "id": "b31816e1395b470d8a1efe2f2366e4e1",
+                    "pmid": "31b6bd8d-86f5-4487-be81-4764187e5a39",
+                    "on": "test",
+                    "data": "\n",
+                    "type": "js",
+                    "disabled": false,
+                    "description": ""
+                }
+            ]
+        },
+        {
+            "id": "b2418147a29e47e88da93ff6266635f6",
+            "pmid": "write file - 401",
+            "description": "write file - 401",
+            "request": {
+                "url": "https://example.com/api/diag/empty-array.json",
+                "headers": [],
+                "method": "POST",
+                "body": {
+                    "type": "raw",
+                    "raw": "[\n]"
+                }
+            },
+            "scripts": [
+                {
+                    "id": "392387d322ca47bf9c236cff05467c60",
+                    "pmid": "31b6bd8d-86f5-4487-be81-4764187e5a39",
+                    "on": "test",
+                    "data": "pm.test(\"Status code is 401\", function () {\n    pm.response.to.have.status(401);\n});\n",
+                    "type": "js",
+                    "disabled": false,
+                    "description": ""
+                }
+            ]
+        },
+        {
+            "id": "b5b5079296fe402ebf7b9813cd6fbdf7",
+            "pmid": "write file",
+            "description": "write file",
+            "request": {
+                "url": "https://example.com/api/diag/empty-array.json",
+                "headers": [],
+                "method": "POST",
+                "body": {
+                    "type": "raw",
+                    "raw": "[\n]"
+                }
+            },
+            "scripts": [
+                {
+                    "id": "a1770e3bbec245648d16e731529b7e20",
+                    "pmid": "31b6bd8d-86f5-4487-be81-4764187e5a39",
+                    "on": "test",
+                    "data": "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n",
+                    "type": "js",
+                    "disabled": false,
+                    "description": ""
+                }
+            ]
+        },
+        {
+            "id": "869dd74c90604976a68a0bdfcc42cb09",
+            "pmid": "get file",
+            "description": "get file",
+            "request": {
+                "url": "https://example.com/api/diag/empty-array.json",
+                "headers": [],
+                "method": "GET",
+                "body": {
+                    "type": "raw",
+                    "raw": ""
+                }
+            },
+            "scripts": [
+                {
+                    "id": "5f5164f2a2a1436b8437078c89def162",
+                    "pmid": "9a2ece91-af2a-4233-b4b6-4c98fb93b631",
+                    "on": "test",
+                    "data": "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n",
+                    "type": "js",
+                    "disabled": false,
+                    "description": ""
+                }
+            ]
+        },
+        {
+            "id": "d7c261c89a4d4bc9a1ecb82882e10b48",
+            "pmid": "get file - 404",
+            "description": "get file - 404",
+            "request": {
+                "url": "https://example.com/api/diag/invalid-file.json",
+                "headers": [],
+                "method": "GET",
+                "body": {
+                    "type": "raw",
+                    "raw": ""
+                }
+            },
+            "scripts": [
+                {
+                    "id": "b33d06c52e74483c8308107b931a0125",
+                    "pmid": "9a2ece91-af2a-4233-b4b6-4c98fb93b631",
+                    "on": "test",
+                    "data": "pm.test(\"Status code is 404\", function () {\n    pm.response.to.have.status(404);\n});\n",
+                    "type": "js",
+                    "disabled": false,
+                    "description": ""
+                }
+            ]
+        },
+        {
+            "id": "d38aac8e51c6430fb5c9a3e713ebb42d",
+            "pmid": "delete file",
+            "description": "delete file",
+            "request": {
+                "url": "https://example.com/api/diag/empty-array.json",
+                "headers": [],
+                "method": "DELETE",
+                "body": {
+                    "type": "raw",
+                    "raw": ""
+                }
+            },
+            "scripts": [
+                {
+                    "id": "e7373633e0f94c079b0585f9a15ed33b",
+                    "pmid": "74e7ca1a-a5a6-467f-a3b4-f46fdab4d9a8",
+                    "on": "test",
+                    "data": "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n",
+                    "type": "js",
+                    "disabled": false,
+                    "description": ""
+                }
+            ]
+        },
+        {
+            "id": "506dd1b9e67c4374b34611651b9d555c",
+            "pmid": "echo - (with application header)",
+            "description": "echo - (with application header)",
+            "request": {
+                "url": "https://example.com/api/echo",
+                "headers": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "name": "Content-Type",
+                        "type": "text"
+                    },
+                    {
+                        "key": "x-yaitde-application",
+                        "value": "yaitde-agent-mock:master-64",
+                        "type": "text"
+                    }
+                ],
+                "method": "POST",
+                "body": {
+                    "type": "raw",
+                    "raw": "{\n\t\"test\" : \"json\",\n\t\"property1\" : 5\n}"
+                }
+            },
+            "scripts": [
+                {
+                    "id": "782e4135302a44b08ef5d2ffa0a8ebce",
+                    "pmid": "52cdd5a0-8e2b-4bf0-a097-4061173bb34f",
+                    "on": "test",
+                    "data": "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n",
+                    "type": "js",
+                    "disabled": false,
+                    "description": ""
+                }
+            ]
+        },
+        {
+            "id": "e04f414144c84570b8c4474cac213fda",
+            "pmid": "error",
+            "description": "error",
+            "request": {
+                "url": "https://example.com/api/status/423",
+                "headers": [],
+                "method": "POST",
+                "body": {
+                    "type": "raw",
+                    "raw": ""
+                }
+            },
+            "scripts": [
+                {
+                    "id": "69f8c345b4ed4388b5d54863d8585b9b",
+                    "pmid": "958e496c-3766-491d-87f3-3d736c2d5757",
+                    "on": "test",
+                    "data": "pm.test(\"Status code is 423\", function () {\n    pm.response.to.have.status(423);\n});\n",
+                    "type": "js",
+                    "disabled": false,
+                    "description": ""
+                }
+            ]
+        },
+        {
+            "id": "9d1c3dea345a4a42a84e241a01dbca4e",
+            "pmid": "write schema - test schema",
+            "description": "write schema - test schema",
+            "request": {
+                "url": "https://example.com/api/schemas/test-schema.json",
+                "headers": [],
+                "method": "POST",
+                "body": {
+                    "type": "raw",
+                    "raw": "{\n    \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n    \"$id\": \"https://api.getoffmylawn.xyz/api/schemas/test-schema.json\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"someProp\": {\n            \"type\": \"string\"\n        },\n        \"p1\" : { \"type\" : \"object\", \"additionalProperties\": true },\n        \"p2\" : { \"type\" : \"object\", \"additionalProperties\": true },\n        \"p3\" : { \"type\" : \"object\", \"additionalProperties\": true }\n    },\n    \"additionalProperties\": false\n}"
+                }
+            },
+            "scripts": [
+                {
+                    "id": "cf922e9fe85d4aba831185f7c5511753",
+                    "pmid": "31b6bd8d-86f5-4487-be81-4764187e5a39",
+                    "on": "test",
+                    "data": "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n",
+                    "type": "js",
+                    "disabled": false,
+                    "description": ""
+                }
+            ]
+        },
+        {
+            "id": "8efd110b3fa44ca5b841488058a65b86",
+            "pmid": "get test-schema",
+            "description": "get test-schema",
+            "request": {
+                "url": "https://example.com/api/schemas/test-schema.json",
+                "headers": [],
+                "method": "GET",
+                "body": {
+                    "type": "raw",
+                    "raw": ""
+                }
+            },
+            "scripts": [
+                {
+                    "id": "0c7731f3104a4646a9d6684e6bcd795c",
+                    "pmid": "9a2ece91-af2a-4233-b4b6-4c98fb93b631",
+                    "on": "test",
+                    "data": "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n",
+                    "type": "js",
+                    "disabled": false,
+                    "description": ""
+                }
+            ]
+        },
+        {
+            "id": "0fbfdb1ade7649aa81e03275f4965a8a",
+            "pmid": "delete the test schema",
+            "description": "delete the test schema",
+            "request": {
+                "url": "https://example.com/api/schemas/test-schema.json",
+                "headers": [],
+                "method": "DELETE",
+                "body": {
+                    "type": "raw",
+                    "raw": ""
+                }
+            },
+            "scripts": [
+                {
+                    "id": "04c1b6f448eb4ed88d5891c25357adb0",
+                    "pmid": "74e7ca1a-a5a6-467f-a3b4-f46fdab4d9a8",
+                    "on": "test",
+                    "data": "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n",
+                    "type": "js",
+                    "disabled": false,
+                    "description": ""
+                }
+            ]
+        },
+        {
+            "id": "5dbe969a1f4f44bbb3c13eb50ad9a7f3",
+            "pmid": "get an existing schema",
+            "description": "get an existing schema",
+            "request": {
+                "url": "https://example.com/api/schemas/echo-resp.json",
+                "headers": [],
+                "method": "GET",
+                "body": {
+                    "type": "raw",
+                    "raw": ""
+                }
+            },
+            "scripts": [
+                {
+                    "id": "38630714b4f34dbfbdec8e0a60d84551",
+                    "pmid": "9a2ece91-af2a-4233-b4b6-4c98fb93b631",
+                    "on": "test",
+                    "data": "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n",
+                    "type": "js",
+                    "disabled": false,
+                    "description": ""
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,15 @@
+{
+    "systemPath" : "/usr/src/yaitde",
+    "mockRepoPath" : "/usr/src/app/mock-data",
+    "schemaRepoPath" : "/usr/src/app/schemas",
+    "automationPath" : "/usr/src/yaitde/automation",
+    "userRepoRoot" : "/usr/src/app/yaitde-repo",
+
+    "runnerConfig": {
+        "path": "/usr/src/app/build/main.ts"
+    },
+    "outlineConfig" : {
+        "url" : "https://kb.yaitde.io",
+        "apiKey" : "EbIPyXonOxTnzZHxqvVUTs5zCgJiA601eod45u"
+    }
+}

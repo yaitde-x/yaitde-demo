@@ -1,0 +1,600 @@
+{
+	"info": {
+		"_postman_id": "4696ec6a-4333-4f26-ba6e-0a1ce5580964",
+		"name": "goml-mock",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "token - invalid request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "31b6bd8d-86f5-4487-be81-4764187e5a39",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer SomeToken"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"{{user}}\",\n    \"scope\": \"bad\",\n    \"secret\": \"{{secret}}\"\n}"
+				},
+				"url": {
+					"raw": "{{authUrl}}/auth",
+					"host": [
+						"{{authUrl}}"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "31b6bd8d-86f5-4487-be81-4764187e5a39",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"token\", jsonData.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer SomeToken",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"{{user}}\",\n    \"scope\": \"mock\",\n    \"secret\": \"{{secret}}\",\n    \"instance\" : \"my-named-instance\"\n}"
+				},
+				"url": {
+					"raw": "{{authUrl}}/auth",
+					"host": [
+						"{{authUrl}}"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "docs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "31b6bd8d-86f5-4487-be81-4764187e5a39",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/docs/json",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"docs",
+						"json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "write file - 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "31b6bd8d-86f5-4487-be81-4764187e5a39",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n]"
+				},
+				"url": {
+					"raw": "{{url}}/api/diag/empty-array.json",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"diag",
+						"empty-array.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "write file",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "31b6bd8d-86f5-4487-be81-4764187e5a39",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n]"
+				},
+				"url": {
+					"raw": "{{url}}/api/diag/empty-array.json",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"diag",
+						"empty-array.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get file",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9a2ece91-af2a-4233-b4b6-4c98fb93b631",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/diag/empty-array.json",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"diag",
+						"empty-array.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get file - 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9a2ece91-af2a-4233-b4b6-4c98fb93b631",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/diag/invalid-file.json",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"diag",
+						"invalid-file.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete file",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "74e7ca1a-a5a6-467f-a3b4-f46fdab4d9a8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/diag/empty-array.json",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"diag",
+						"empty-array.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "echo - (with application header)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "52cdd5a0-8e2b-4bf0-a097-4061173bb34f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-yaitde-application",
+						"value": "yaitde-agent-mock:master-64",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"test\" : \"json\",\n\t\"property1\" : 5\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/echo",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"echo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "958e496c-3766-491d-87f3-3d736c2d5757",
+						"exec": [
+							"pm.test(\"Status code is 423\", function () {",
+							"    pm.response.to.have.status(423);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/status/423",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"status",
+						"423"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "write schema - test schema",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "31b6bd8d-86f5-4487-be81-4764187e5a39",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n    \"$id\": \"https://api.getoffmylawn.xyz/api/schemas/test-schema.json\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"someProp\": {\n            \"type\": \"string\"\n        },\n        \"p1\" : { \"type\" : \"object\", \"additionalProperties\": true },\n        \"p2\" : { \"type\" : \"object\", \"additionalProperties\": true },\n        \"p3\" : { \"type\" : \"object\", \"additionalProperties\": true }\n    },\n    \"additionalProperties\": false\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/schemas/test-schema.json",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"schemas",
+						"test-schema.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get test-schema",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9a2ece91-af2a-4233-b4b6-4c98fb93b631",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/schemas/test-schema.json",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"schemas",
+						"test-schema.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete the test schema",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "74e7ca1a-a5a6-467f-a3b4-f46fdab4d9a8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/schemas/test-schema.json",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"schemas",
+						"test-schema.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get an existing schema",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9a2ece91-af2a-4233-b4b6-4c98fb93b631",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/schemas/echo-resp.json",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"schemas",
+						"echo-resp.json"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "919e5c56-8afc-4131-9fbf-3e7f80479bef",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "00643862-20b2-4f5b-9ecf-18ef0dcf8dba",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -1,0 +1,40 @@
+# syntax = docker/dockerfile:1.0-experimental
+
+FROM ghcr.io/yaitde/yaitde-agent-base:latest
+LABEL Yaitde Agent <support@yaitde.com>
+
+ENV RUN_MODE ''
+
+SHELL ["/bin/sh", "-c"],
+
+#RUN apt update
+
+# Create app directory
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+COPY tsconfig*.json ./
+COPY config-dkr.json ./config.json
+COPY ./src ./src
+COPY ./schemas ./schemas
+
+RUN --mount=type=secret,id=NPM_TOKEN,dst=/usr/src/app/npm-token.txt NPM_TOKEN=$(cat ./npm-token.txt) && \
+    echo "//npm.getoffmylawn.xyz/:_authToken=$NPM_TOKEN" > .npmrc && \
+    npm config set registry https://npm.getoffmylawn.xyz && \
+    npm config set @yaitde:registry https://npm.getoffmylawn.xyz && \
+    npm ci --quiet && \
+    npm run compile && \
+    rm -f .npmrc
+
+EXPOSE 3000
+
+#ENTRYPOINT ["/bin/sh"]
+ENTRYPOINT []
+
+#CMD "/bin/sh -c /usr/local/bin/node build/main.js ${RUN_MODE}"
+#CMD ""
+#CMD ["/bin/sh", "-c", "node build/main.js ${RUN_MODE}"]
+#CMD ["/bin/sh", "-c", "node build/main.js ${RUN_MODE}"]
+CMD ["/bin/sh", "-c", "/usr/local/bin/node build/main.js ${RUN_MODE}"]
+
+

@@ -1,0 +1,11 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://api.getoffmylawn.xyz/api/schemas/token-resp.json",
+    "type": "object",
+    "properties": {
+        "token": {
+            "type": "string"
+        }
+    },
+    "additionalProperties": false
+}

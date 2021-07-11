@@ -1,0 +1,66 @@
+version: '3'
+
+# This will standup nginx, certbot, and the yaitde-agent running as the router
+# they all three communicate via the yaitde-net network
+
+# this nginx instance is currently routing verdaccio as well. at some point we will move that
+# to a different composition
+
+services:
+
+  nginx:
+    image: nginx:1.15-alpine
+    container_name: nginx
+    restart: unless-stopped
+    volumes:
+      - ./data/nginx:/etc/nginx/conf.d
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    ports:
+      - "80:80"
+      - "443:443"
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    networks:
+      - yaitde-net
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    restart: unless-stopped
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    networks:
+      - yaitde-net
+
+  yaitde-router:
+    container_name: yaitde-router
+    image: ghcr.io/yaitde/yaitde-agent:master-67
+    restart: unless-stopped
+    environment:
+    - RUN_MODE=-r
+    env_file:
+     - ./signing-key.txt
+    volumes:
+      - /home/yaitdex/.yaitde:/usr/src/yaitde
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - yaitde-net
+
+  verdaccio:
+    image: verdaccio/verdaccio
+    restart: unless-stopped
+    container_name: verdaccio
+
+    volumes:
+      - /home/yaitdex/verdaccio/conf:/verdaccio/conf
+      - /home/yaitdex/verdaccio/storage:/verdaccio/storage
+      - /home/yaitdex/verdaccio/plugins:/verdaccio/plugins
+    networks:
+      - yaitde-net
+
+networks:
+  yaitde-net:
+    name: yaitde-net
+
